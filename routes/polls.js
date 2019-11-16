@@ -13,7 +13,7 @@ module.exports = (db) => {
     db.query(`SELECT * FROM polls;`)
       .then(data => {
         const users = data.rows;
-        res.json({ polls });
+        res.json({ users });
 
         res.render('users_index', { polls })
       })
