@@ -1,0 +1,23 @@
+REST
+user
+
+USERS ROUTER
+Create post   /users
+
+Read   get    /users (all)
+       get    /users/:id (one)
+
+Update put    /users/:id
+       patch  /users/:id
+       post   /users/:id
+
+Delete DELETE /users/:id
+
+Read      get    /users/:id/polls (all polls for user)
+
+
+POLLS ROUTER
+          get    /polls  (all polls)
+          get    /polls/:id
+Create    post   /polls
+DELETE    DELETE /pols/:id

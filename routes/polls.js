@@ -10,10 +10,12 @@ const router  = express.Router();
 
 module.exports = (db) => {
   router.get("/", (req, res) => {
-    db.query(`SELECT * FROM users;`)
+    db.query(`SELECT * FROM polls;`)
       .then(data => {
         const users = data.rows;
-        res.json({ users });
+        res.json({ polls });
+
+        res.render('users_index', { polls })
       })
       .catch(err => {
         res
@@ -23,3 +25,9 @@ module.exports = (db) => {
   });
   return router;
 };
+
+// module.exports = (db) => {
+//   router.post("/", (req, res) => {
+//     db.query(`INSERT INTO polls (title, description, )`)
+//   })
+// };
