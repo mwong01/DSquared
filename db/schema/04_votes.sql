@@ -1,0 +1,8 @@
+DROP TABLE IF EXISTS votes CASCADE;
+
+CREATE TABLE votes (
+  id SERIAL PRIMARY KEY NOT NULL,
+  option_id INTEGER REFERENCES options(id) NOT NULL,
+  voter_id INTEGER REFERENCES voters(id) NOT NULL,
+  values VARCHAR(255) [] NOT NULL
+);
