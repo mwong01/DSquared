@@ -26,6 +26,7 @@ CLIENT
 
   <input name="voter[name]"
 </form>
+</form
 
 $('#poll').appendChild('<input name="option[index]">')
 
