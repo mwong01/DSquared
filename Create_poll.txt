@@ -1,4 +1,4 @@
-What data do I nee from the user?
+What data do I need from the user?
 
 Create Poll
 
@@ -25,7 +25,7 @@ CLIENT
   <input name="options[0]" type="text>
 
   <input name="voter[name]"
-</form
+</form>
 
 $('#poll').appendChild('<input name="option[index]">')
 

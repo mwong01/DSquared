@@ -21,3 +21,13 @@ POLLS ROUTER
           get    /polls/:id
 Create    post   /polls
 DELETE    DELETE /pols/:id
+
+
+homepage 
+get localhost:8080/
+
+When user creates poll - two things happen 
+
+1) redirected to a page which gives them a link to results and a link to share with friends
+
+2) poll is created and rendered on a page 
