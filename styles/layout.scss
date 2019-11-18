@@ -1,9 +1,35 @@
 // See: https://sass-lang.com/
 
+@import "partials/_variables.scss";
+
 body {
   background-color: #EEE;
 
   h1 {
     color: #244751;
   }
+}
+
+// Nav Bar 
+nav {
+position: fixed;
+height: 120px;
+width: 100%; 
+z-index: 1030;
+background-color: cadetblue;
+color: #FFFF;
+padding: 1.5em;
+top: 0;
+}
+
+.flex-container {
+display: flex;
+justify-content: space-between;
+}
+
+.create-poll {
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center; 
 }

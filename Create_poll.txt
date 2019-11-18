@@ -1,0 +1,54 @@
+What data do I need from the user?
+
+Create Poll
+
+
+Form (action="/polls")
+  Email (Text Input)
+  Name (Text Input)
+  Question (Text Input)
+  voter (Object)
+    name: string
+    email: string
+  Options (List)
+    Add option
+    Remove option
+    Edit
+
+
+input needs a name=
+
+CLIENT
+<form id="poll" action="/polls">
+  <input name="email" type="text>```
+  <input name="name" type="text>
+  <input name="options[0]" type="text>
+
+  <input name="voter[name]"
+</form>
+</form
+
+$('#poll').appendChild('<input name="option[index]">')
+
+Once user submits
+Form created (post request containing poll data from user)
+- server gets that
+= creates new UID and saves it to the database (poll)
+- response back to browser - random unique/id
+
+SERIES OF GET AND POSTs
+
+
+
+SERVER
+request.body => {
+  email: '',
+  name: '',
+  options: {
+    0: 'options text',
+    1: 'more text'
+  }
+    'option text',
+  ]
+  ,
+}
