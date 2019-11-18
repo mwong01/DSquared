@@ -1,6 +1,6 @@
 -- Sample data
 
-INSERT INTO polls (id, title, description, uid, email) VALUES (1, 'Lunch Plans', 'What should we have for lunch this Friday?', '123ABC', 'lunch@lunch.com');
+INSERT INTO polls (id, title, description, email, slug) VALUES (1, 'Lunch Plans', 'What should we have for lunch this Friday?', 'lunch@lunch.com', 'AAA12345');
 
 INSERT INTO votes (id, poll_id, name) VALUES (1,1,'Homer');
 INSERT INTO votes (id, poll_id, name) VALUES (2,1,'Marge');
