@@ -17,6 +17,8 @@ module.exports = function(database) {
       if (req.body.title === "" || req.body.email === "") {
         res.status(400);
         res.send("400 error - Bad Request: No title or email entered. Please try again");   
+      } else {
+        
       }
     });
     //   else {  
