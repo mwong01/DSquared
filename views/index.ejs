@@ -3,15 +3,15 @@
   <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
+
    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    
+
     <title>Decisions</title>
 
     <!-- font  -->
     <link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,400i,700,700i|Roboto:400,400i,700,700i&display=swap" rel="stylesheet">
-    
+
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
@@ -19,6 +19,9 @@
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
+
+    <script src="https://use.fontawesome.com/releases/v5.11.2/js/all.js" data-auto-a11y="true"></script>
+
   </head>
   <header>
     <% include partials/_header %>
@@ -26,14 +29,37 @@
 
   <body>
 
+    <!-- make this drop down when click top right button -->
+    <div id="new-poll" class="new-poll">
+      <form action="/polls/:id/" method="POST">
+        <div class="form-group">
+          <label for="poll-title">What do you need help deciding today?</label>
+          <input type="form" name="title" class="poll-title"> </input>
+
+          <label for="poll-choices">What are your choices?</label>
+          <input type="form" name="title" class="poll-choices"> </input>
+
+          <label for="poll-description">Any details you'd like to share?</label>
+          <input type="form" name="title" class="poll-description"> </input>
+
+          <label for="email">Please enter your email:</label>
+          <input type="email" name="email" class="email" id="email">
+
+          <small id="emailHelp" class="form-text text-muted">You will receive a confirmation email that contains a sharable voting link and results link</small>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+
+      </form>
+    </div>
+
     <p>
         Lorem ipsum dolor amet literally polaroid hoodie whatever, beard messenger bag vice put a bird on it thundercats pitchfork seitan distillery. Tacos vexillologist cliche, meggings food truck sartorial iPhone narwhal bespoke. Echo park DIY raw denim swag. Helvetica tumeric lo-fi snackwave hexagon actually. Kitsch air plant tumblr XOXO, you probably haven't heard of them pour-over kombucha actually. Aesthetic blog raw denim four loko meditation fixie mlkshk. Cray bicycle rights vexillologist four dollar toast subway tile selvage disrupt.
 
         Artisan wolf keffiyeh activated charcoal ethical, kombucha aesthetic mlkshk man braid. Swag small batch four dollar toast, mixtape tofu affogato chicharrones etsy selvage truffaut gochujang. Authentic farm-to-table mixtape shabby chic. Snackwave adaptogen chartreuse, VHS pork belly tofu farm-to-table cold-pressed four dollar toast humblebrag. Edison bulb man braid retro, twee cloud bread taxidermy street art freegan direct trade stumptown microdosing jianbing. Kale chips plaid pabst bitters tofu bushwick, truffaut small batch brooklyn aesthetic direct trade chambray.
-        
+
         Tattooed succulents asymmetrical, bicycle rights godard 3 wolf moon chartreuse tbh vexillologist 8-bit literally affogato knausgaard irony helvetica. Bushwick shoreditch ethical, cred vice bicycle rights disrupt. Edison bulb next level fixie pour-over, dreamcatcher tumeric echo park +1 keffiyeh. Truffaut jean shorts raclette post-ironic bicycle rights.
     </p>
-      
+
 
     <!-- Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
