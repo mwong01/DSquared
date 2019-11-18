@@ -9,7 +9,7 @@ const express = require('express');
 const router  = express.Router();
 const database = require('./database');
 
-module.exports = function(database) {
+module.exports = function() {
 
   // Create a new poll
   
@@ -18,17 +18,15 @@ module.exports = function(database) {
         res.status(400);
         res.send("400 error - Bad Request: No title or email entered. Please try again");   
       }
-    });
-    //   else {  
-    //     const pollId = req.params.id
-    //     database.addPoll(pollId)
-    //     .then( (id) => {
-    //       // res.redirect("/polls/:id/links"))
-    //       res.send('i hope it worked')
-      
-    //     }).catch(e => res.send(e));
-    //   }
-    // })
+      else {  
+        addPoll(poll)
+        .then( (id) => {
+          // res.redirect("/polls/:id/links"))
+          res.send('i hope it worked')
+        })
+        .catch(e => res.send(e));
+      }
+    })
   // Page that renders admin link and shortened url for participants
   
     router.get("/polls/:id/links", (req, res) => {
