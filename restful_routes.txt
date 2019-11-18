@@ -20,7 +20,6 @@ POLLS ROUTER
           get    /polls  (all polls)
           get    /polls/:id
 Create    post   /polls
-<<<<<<< HEAD
 DELETE    DELETE /pols/:id
 
 
@@ -32,6 +31,4 @@ When user creates poll - two things happen
 1) redirected to a page which gives them a link to results and a link to share with friends
 
 2) poll is created and rendered on a page 
-=======
-DELETE    DELETE /pols/:id
->>>>>>> f34a52ea0b991d8e3ed6affaa0ce4855cf98cf60
+

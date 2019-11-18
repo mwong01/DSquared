@@ -48,11 +48,13 @@ app.use("/widgets", widgetsRoutes(db));
 // Separate them into separate routes files (see above).
 app.get("/", (req, res) => {
   res.render("index");
+  // AJAX request for drop-down poll form 
+  // Also for toggle
 });
 
-app.post("/", (req, res) => {
-  res.redirect("/polls")
-});
+// app.post("/", (req, res) => {
+//   res.redirect("/polls")
+// });
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
