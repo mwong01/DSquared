@@ -43,17 +43,24 @@ module.exports = function() {
 
 //Create a New Poll
 router.post("/", (req, res) => {
+  console.log(req.body)
   if (req.body.title === "" || req.body.email === "") {
     res.status(400);
     res.send("400 error - Bad Request: No title or email entered. Please try again");   
   }  else {  
-    addPoll(poll)
-    .then( (id) => {
-      // res.redirect("/polls/:id/links"))
+    database.addPoll(req.body.title, req.body.description, req.body.email)
+    .then( (results) => {
+      const pollId = results[0].id;
+      const myChoices = req.body.choiceSub
+      // return database.addOption(pollId, myChoices)
+      return Promise.all(req.body.choiceSub.map((choice) => database.addOption(pollId, choice)))
+    }).then((result) => {
+      console.log(result)
       res.send('i hope it worked')
-    })
-    .catch(e => res.send(e));
+    }).catch(e => res.send(e));
+    
   }
+
 
   // Mailgun API
   const tempVar = req.body;

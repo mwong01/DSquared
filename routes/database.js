@@ -14,10 +14,10 @@ const pool = new Pool({
  */
 const addPoll = function(title, description = "", email) {
   return pool.query(`
-    INSERT INTO polls (title, description, email) 
-    VALUES($1, $2, $3)
+    INSERT INTO polls (title, description, email, slug) 
+    VALUES($1, $2, $3, $4)
     RETURNING *;
-    `, [title, description, email])
+    `, [title, description, email, "slug"])
     .then(res => res.rows);
 };
 exports.addPoll = addPoll;
