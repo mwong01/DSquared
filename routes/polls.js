@@ -64,11 +64,13 @@ router.post("/", (req, res) => {
     });
     data['text'] = '';  // data is a global var, needs to be emptied after usage
 
+    console.log(idURL)
+
     //DATABASE section
     database.addPoll(poll.title, poll.description, poll.email, idURL)
     .then( (results) => {
       const pollId = results[0].id;
-      const myChoices = req.body.choiceSub
+      // const myChoices = req.body.choiceSub
       // return database.addOption(pollId, myChoices)
       return Promise.all(req.body.choiceSub.map((choice) => database.addOption(pollId, choice)))
     }).then((result) => {
