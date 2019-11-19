@@ -9,27 +9,21 @@ const express = require('express');
 const router  = express.Router();
 const database = require('./database');
 
-///////////////////////////////
-// url library
-///////////////////////////////
+/**
+ * Add a new poll to the database
+**/
 
 const url = require('url');
 
-///////////////////////////////
-///////////////////////////////
-
-//////////////////////////////
-// random generator library
-//////////////////////////////
+/**
+ * random generator library
+**/
 
 const uuidv4 = require('uuid/v4');
 
-///////////////////////////////
-///////////////////////////////
-
-//////////////////////////
-//mail-gun library
-//////////////////////////
+/**
+ * mail-gun library
+**/
 
 const mailgun = require("mailgun-js");
 const DOMAIN = 'sandboxb6a25036350f4605b9c501db6b4cee76.mailgun.org';
@@ -41,88 +35,100 @@ const data = {
 	text: ''
 };
 
+/**
+ * Decision, Decision Routes
+**/
+
 module.exports = function() {
 
-    //
-    if (req.body.title === "" || req.body.email === "") {
-      res.status(400);
-      res.send("400 error - Bad Request: No title or email entered. Please try again");   
-    }  else {  
-      addPoll(poll)
-      .then( (id) => {
-        // res.redirect("/polls/:id/links"))
-        res.send('i hope it worked')
-      })
-      .catch(e => res.send(e));
-    }
-  })
+//Create a New Poll
+router.post("/", (req, res) => {
+  if (req.body.title === "" || req.body.email === "") {
+    res.status(400);
+    res.send("400 error - Bad Request: No title or email entered. Please try again");   
+  }  else {  
+    addPoll(poll)
+    .then( (id) => {
+      // res.redirect("/polls/:id/links"))
+      res.send('i hope it worked')
+    })
+    .catch(e => res.send(e));
+  }
 
-  // Create a new poll
-  
-    router.post("/", (req, res) => {
+  // Mailgun API
+  const tempVar = req.body;
+  const email = tempVar['email'];
 
-      // Mailgun API
-      const tempVar = req.body;
-      const email = tempVar['email'];
-    
-      const shortURL = uuidv4();  // creates a random number for shortURL
-    
-      const startURL = req.headers.referer; //obtains href to attach to generated numbers
-    
-      const voteURL = startURL + shortURL;  // voter url
-    
-      const creatorURL = uuidv4();    // generates a random number for the admin
-    
-      const adminURL = startURL + creatorURL;  // admin address
-    
-      data['to'] = email;
-      data['text'] += 'Your poll name ' + tempVar.title + ' has been created. <br> Here is the voting link: ' + voteURL + ' .<br> Here is the admin link: ' + adminURL;
-      mg.messages().send(data, function (error, body) {  // sends the email
-        console.log(body);
-      });
-      data['text'] = '';  // data is a global var, needs to be emptied after usage
+  const shortURL = uuidv4();  // creates a random number for shortURL
+
+  const startURL = req.headers.referer; //obtains href to attach to generated numbers
+
+  const voteURL = startURL + shortURL;  // voter url
+
+  const creatorURL = uuidv4();    // generates a random number for the admin
+
+  const adminURL = startURL + creatorURL;  // admin address
+
+  data['to'] = email;
+  data['text'] += 'Your poll name ' + tempVar.title + ' has been created. <br> Here is the voting link: ' + voteURL + ' .<br> Here is the admin link: ' + adminURL;
+  mg.messages().send(data, function (error, body) {  // sends the email
+    console.log(body);
+  });
+  data['text'] = '';  // data is a global var, needs to be emptied after usage
+});
     
   
-    // Page that renders admin link and shortened url for participants
-    router.get("/polls/:id/links", (req, res) => {
-      res.render("polls_links");
-    });
+/**
+ *  Links route
+ *  Links page renders two links: shortened url and admin link
+**/
+router.get("/:id/links", (req, res) => {
+  res.render("polls_links");
+});
 
   
+/**
+ * Voting route
+**/
 
-    ////// Creates voting page
+router.get("/:id", (req, res) => {
+  let tempVar;
+  res.render("voting", tempVar);
+});
 
-    router.get("/polls/:id", (req, res) => {
-      let tempVar;
-      res.render("voting", tempVar);
-    });
+/**
+ * Admin route
+**/
 
-    /////// posts voting data, and then renders thank you page
-    /////// Can be changed to redirect to a router.post thank_you
+router.get("/:id/admin", (res, req) => {
+  res.render("admin")
+});
 
-    router.post("/thank-you", (req, res) => {
-      console.log(req.body);  // just have this to see if data is comign across
-      let votes = '';    // variable to pass the votes into
-      let name = '';     // variable for the voter's name, if they wish to pass it in
-      let temp = req.body;  // pass req.body to a temp variable
-      if (temp['votes']) {
-        votes = temp.votes;  //stores the votes
-        console.log(votes);
-      } else {
-        name = temp['voter-name'];  // stores the voter name, '' for null
-        console.log(name);
-      }
+/**
+ * Results route
+**/
 
-      res.render("thank_you");
-    });
+// Results route
+router.get("/:id/results", (req, res) => {
 
-    /////// calls admin page
+});
 
-    router.get("/polls/:id/admin", (req, res) => {
-      res.render("admin");
-    });
+// Creates vote route
+router.post("/:id/results", (req, res) => {
+  console.log(req.body);  // just have this to see if data is comign across
+  let votes = '';    // variable to pass the votes into
+  let name = '';     // variable for the voter's name, if they wish to pass it in
+  let temp = req.body;  // pass req.body to a temp variable
+  if (temp['votes']) {
+    votes = temp.votes;  //stores the votes
+    console.log(votes);
+  } else {
+    name = temp['voter-name'];  // stores the voter name, '' for null
+    console.log(name);
+  }
 
-    
-  
-    return router;
-  };
+  res.render("thank_you");
+});
+
+  return router;
+};
