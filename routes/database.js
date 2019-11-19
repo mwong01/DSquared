@@ -14,13 +14,12 @@ const pool = new Pool({
  */
 const addPoll = function(title, description = "", email) {
   return pool.query(`
-    INSERT INTO polls (title, description, email, slug) 
-    VALUES($1, $2, $3, $4)
+    INSERT INTO polls (title, description, email) 
+    VALUES($1, $2, $3)
     RETURNING *;
-    `, [title, description, email, "slug"])
+    `, [title, description, email])
     .then(res => res.rows);
 };
-exports.addPoll = addPoll;
 
 const addOption = function(pollId, title) {
   return pool.query(`
@@ -31,5 +30,21 @@ const addOption = function(pollId, title) {
     .then (res => res.rows);
 };
 
-exports.addOption = addOption;
 
+const getPoll = function(id) {
+  return pool.query(`
+  SELECT * FROM polls 
+  WHERE id = $1 
+  LIMIT 1`, 
+  [id]).then(res => res.rows[0])
+}
+
+const getPollByPublicId = function(id) {
+  return pool.query(`
+  SELECT * FROM polls 
+  WHERE public_id = $1 
+  LIMIT 1`, 
+  [id]).then(res => res.rows[0])
+}
+
+module.exports = {getPoll, getPollByPublicId, addOption, addPoll}
