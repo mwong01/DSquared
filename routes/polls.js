@@ -47,8 +47,25 @@ router.post("/", (req, res) => {
   if (req.body.title === "" || req.body.email === "") {
     res.status(400);
     res.send("400 error - Bad Request: No title or email entered. Please try again");   
-  }  else {  
-    database.addPoll(req.body.title, req.body.description, req.body.email)
+  }  else {
+
+    // Mailgun API
+    
+    const poll = req.body; // passing req.body into a temporary variable
+    const email = poll['email'];
+    const idURL = uuidv4();  // creates a random number for shortURL
+    const startURL = req.headers.referer; //obtains href to attach to generated numbers
+    const voteURL = startURL + idURL;  // voter page
+    const adminURL = startURL + idURL;  // admin page
+    data['to'] = email;
+    data['text'] += 'Your poll name ' + poll.title + ' has been created. <br> Here is the voting link: ' + voteURL + ' .<br> Here is the admin link: ' + adminURL;
+    mg.messages().send(data, function (error, body) {  // sends the email
+      console.log(body);
+    });
+    data['text'] = '';  // data is a global var, needs to be emptied after usage
+
+    //DATABASE section
+    database.addPoll(poll.title, poll.description, poll.email, idURL)
     .then( (results) => {
       const pollId = results[0].id;
       const myChoices = req.body.choiceSub
@@ -61,27 +78,6 @@ router.post("/", (req, res) => {
     
   }
 
-
-  // Mailgun API
-  const tempVar = req.body;
-  const email = tempVar['email'];
-
-  const shortURL = uuidv4();  // creates a random number for shortURL
-
-  const startURL = req.headers.referer; //obtains href to attach to generated numbers
-
-  const voteURL = startURL + shortURL;  // voter url
-
-  const creatorURL = uuidv4();    // generates a random number for the admin
-
-  const adminURL = startURL + creatorURL;  // admin address
-
-  data['to'] = email;
-  data['text'] += 'Your poll name ' + tempVar.title + ' has been created. <br> Here is the voting link: ' + voteURL + ' .<br> Here is the admin link: ' + adminURL;
-  mg.messages().send(data, function (error, body) {  // sends the email
-    console.log(body);
-  });
-  data['text'] = '';  // data is a global var, needs to be emptied after usage
 });
     
   
@@ -99,8 +95,8 @@ router.get("/:id/links", (req, res) => {
 **/
 
 router.get("/:id", (req, res) => {
-  let tempVar;
-  res.render("voting", tempVar);
+  let poll;
+  res.render("voting", poll);
 });
 
 /**
