@@ -85,11 +85,15 @@ router.post("/", (req, res) => {
   
 /**
  *  Links route
- *  Links page renders two links: shortened url and admin link
+ *  Links page renders two links: url and admin link
 **/
 router.get("/:id/links", (req, res) => {
   const id = req.params.id
-  res.render("links");
+  database.getPoll(id).then((poll) => {
+
+    res.render("links");
+  })
+  
 });
 
   
@@ -97,7 +101,7 @@ router.get("/:id/links", (req, res) => {
  * Voting route
 **/
 
-router.get("/:id", (req, res) => {
+router.get("/:public_id", (req, res) => {
   let poll;
   res.render("voting", poll);
 });
@@ -133,7 +137,7 @@ router.post("/:id/results", (req, res) => {
     console.log(name);
   }
 
-  res.render("thank_you");
+  res.redirect("thank_you");
 });
 
   return router;
