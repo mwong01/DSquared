@@ -9,7 +9,7 @@ const express = require('express');
 const router  = express.Router();
 const database = require('./database');
 
-module.exports = function(database) {
+module.exports = function() {
 
   // Create a new poll
   
