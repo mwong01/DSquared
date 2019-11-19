@@ -1,9 +1,16 @@
+.new-poll {
+  margin: 10%;
+}
 
 .form-group {
   color: darkslategrey;
   display: flex;
   flex-direction: column;
-  margin: 5%;
+  border: solid;
+}
+
+#box-two{
+  display:none;
 }
 
 .poll-title {
