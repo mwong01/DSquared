@@ -17,17 +17,13 @@
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
     <link rel="stylesheet" href="/styles/nav.css" type="text/css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-    <script type="text/javascript" src="/scripts/app.js"></script>
+
 
     <script src="https://use.fontawesome.com/releases/v5.11.2/js/all.js" data-auto-a11y="true"></script>
-    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <!-- AJAX queries -->
     <script type="text/javascript" src="/scripts/app.js"></script>
-
-    <!-- AJAX  -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   </head>
 
 
@@ -85,42 +81,41 @@
         Tattooed succulents asymmetrical, bicycle rights godard 3 wolf moon chartreuse tbh vexillologist 8-bit literally affogato knausgaard irony helvetica. Bushwick shoreditch ethical, cred vice bicycle rights disrupt. Edison bulb next level fixie pour-over, dreamcatcher tumeric echo park +1 keffiyeh. Truffaut jean shorts raclette post-ironic bicycle rights.
     </p>
 
+    <script>
+    //     // Poll function for dynamic poll form
+    // const createLiChoices = function(number){
+    //   let $choices = $('<article  id="choice-container">').addClass('list');
+    //   let markup = ``;
+    //   for (let i = 1; i <= number; i++) {
+    //     let singleChoice = `
+    //       <textarea  name="choiceSub" class="form-control" id="${i}" rows="1" style="width: 200px;" placeholder="Choose an option!"></textarea>
+    //     `;
+    //     markup += singleChoice;
+    //   }
+    //   return $choices.append(markup);
+    // };
+    
+    // // AJAX REQUESTS
+    // $(document).ready(function(){
+    //   $("#first-button").click( () => {
+    //     $("#hide-button").slideToggle();
+    
+    //     event.preventDefault();
+    //     const choice = $("#options").serialize();
+    //     const number = choice.slice(choice.length-1, choice.length);
+    //     const numInt = parseInt(number);
+    
+    //     $('#option-creator').append(createLiChoices(numInt));
+    //     setTimeout(function(){ 
+    //       $("#box-two").slideToggle();
+    //     }, 1000);
+    //   });
+    // });
+      </script>
 
     <!-- Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     
-    <script>
-    // Poll function for dynamic poll form
-const createLiChoices = function(number){
-  let $choices = $('<article  id="choice-container">').addClass('list');
-  let markup = ``;
-  for (let i = 1; i <= number; i++) {
-    let singleChoice = `
-      <textarea  name="choiceSub" class="form-control" id="${i}" rows="1" style="width: 200px;" placeholder="Choose an option!"></textarea>
-    `;
-    markup += singleChoice;
-  }
-  return $choices.append(markup);
-};
-
-// AJAX REQUESTS
-$(document).ready(function(){
-  $("#first-button").click( () => {
-    $("#hide-button").slideToggle();
-
-    event.preventDefault();
-    const choice = $("#options").serialize();
-    const number = choice.slice(choice.length-1, choice.length);
-    const numInt = parseInt(number);
-
-    $('#option-creator').append(createLiChoices(numInt));
-    setTimeout(function(){ 
-      $("#box-two").slideToggle();
-    }, 1000);
-  });
-});
-  </script>
   </body>
 </html>
