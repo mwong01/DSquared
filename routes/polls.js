@@ -52,37 +52,35 @@ router.post("/", (req, res) => {
     // Mailgun API
     
     const poll = req.body; // passing req.body into a temporary variable
-    const email = poll['email'];
-    const idURL = uuidv4();  // creates a random number for shortURL
-    const startURL = req.headers.referer; //obtains href to attach to generated numbers
-    const voteURL = startURL + idURL;  // voter page
-    const adminURL = startURL + idURL;  // admin page
-    data['to'] = email;
-    data['text'] += 'Your poll name ' + poll.title + ' has been created. <br> Here is the voting link: ' + voteURL + ' .<br> Here is the admin link: ' + adminURL;
-    mg.messages().send(data, function (error, body) {  // sends the email
-      console.log(body);
-    });
-    data['text'] = '';  // data is a global var, needs to be emptied after usage
+    // const email = poll['email'];
+    // const idURL = uuidv4();  // creates a random number for shortURL
+    // const startURL = req.headers.referer; //obtains href to attach to generated numbers
+    // const voteURL = startURL + idURL;  // voter page
+    // const adminURL = startURL + idURL;  // admin page
+    // data['to'] = email;
+    // data['text'] += 'Your poll name ' + poll.title + ' has been created. <br> Here is the voting link: ' + voteURL + ' .<br> Here is the admin link: ' + adminURL;
+    // mg.messages().send(data, function (error, body) {  // sends the email
+    //   console.log(body);
+    // });
+    // data['text'] = '';  // data is a global var, needs to be emptied after usage
 
-    console.log(idURL)
+    // console.log(idURL)
 
-    //DATABASE section
-    database.addPoll(poll.title, poll.description, poll.email, idURL)
+    // Data from user is entered into poll
+    database.addPoll(poll.title, poll.description, poll.email)
     .then( (results) => {
       const pollId = results[0].id;
       // const myChoices = req.body.choiceSub
       // return database.addOption(pollId, myChoices)
-      return Promise.all(req.body.choiceSub.map((choice) => database.addOption(pollId, choice)))
+      return Promise.all(req.body.choiceSub.map((choice) => database.addOption(pollId, parseInt(choice))))
     }).then((result) => {
       console.log(result)
-      res.send('i hope it worked');
+      // res.redirect(`/${pollId}/links`);
     }).catch(e => res.send(e));
-    res.redirect("/:id/links");
   }
 
 });
-    
-  
+     
 /**
  *  Links route
  *  Links page renders two links: url and admin link
@@ -95,7 +93,6 @@ router.get("/:id/links", (req, res) => {
   
 });
 
-  
 /**
  * Voting route
 **/
@@ -112,7 +109,10 @@ router.get("/:public_id", (req, res) => {
 **/
 
 router.get("/:id/admin", (res, req) => {
-  res.render("admin")
+  const id = req.params.id
+  database.getPoll(id).then((poll) => {
+    res.render("admin")
+  });
 });
 
 /**
@@ -121,7 +121,10 @@ router.get("/:id/admin", (res, req) => {
 
 // Results route
 router.get("/:id/results", (req, res) => {
-
+  const id = req.params.id
+  database.getPoll(id).then((poll) => {
+    res.render("results")
+  });
 });
 
 // Creates vote route
