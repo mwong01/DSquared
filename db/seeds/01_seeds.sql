@@ -1,24 +1,13 @@
-INSERT INTO polls (id, title, description, email, slug) VALUES (1, 'lunch plans', 'what do we want for lunch this friday?', 'lunch@lunch.com', 'AAA12345');
-INSERT INTO polls (id, title, description, email, slug) VALUES (2, 'favorite color', NULL, 'color@color.com', 'BBB12345');
+INSERT INTO polls (id, public_id, title, description, email) VALUES ('fc46c0d1-7045-4d0e-a4de-39401ccd2a67', '6b541e21-b113-4f05-b1cd-77c8b71abad8', 'lunch plans', 'whats for lunch tomorrow?', 'lunch@lunch.com');
 
-INSERT INTO options (id, poll_id, title) VALUES (1,1,'pizza');
-INSERT INTO options (id, poll_id, title) VALUES (2,1,'burgers');
-INSERT INTO options (id, poll_id, title) VALUES (3,1,'roti');
-INSERT INTO options (id, poll_id, title) VALUES (4,1,'salad');
+INSERT INTO options (id, poll_id, title) VALUES (1,'fc46c0d1-7045-4d0e-a4de-39401ccd2a67','pizza');
+INSERT INTO options (id, poll_id, title) VALUES (2,'fc46c0d1-7045-4d0e-a4de-39401ccd2a67','burgers');
+INSERT INTO options (id, poll_id, title) VALUES (3,'fc46c0d1-7045-4d0e-a4de-39401ccd2a67','roti');
+INSERT INTO options (id, poll_id, title) VALUES (4,'fc46c0d1-7045-4d0e-a4de-39401ccd2a67','salad');
 
-INSERT INTO options (id, poll_id, title) VALUES (5,2,'red');
-INSERT INTO options (id, poll_id, title) VALUES (6,2,'green');
-INSERT INTO options (id, poll_id, title) VALUES (7,2,'blue');
-
-INSERT INTO voters (id, poll_id, name) VALUES (1,1,'Homer');
-INSERT INTO voters (id, poll_id, name) VALUES (2,1,'Marge');
-INSERT INTO voters (id, poll_id, name) VALUES (3,1,'Ned');
-INSERT INTO voters (id, poll_id, name) VALUES (4,1,'Apu');
-INSERT INTO voters (id, poll_id, name) VALUES (5,1,'Mr. Burns');
-
-INSERT INTO voters (id, poll_id, name) VALUES (6,2,'Moe');
-INSERT INTO voters (id, poll_id, name) VALUES (7,2,NULL);
-INSERT INTO voters (id, poll_id, name) VALUES (8,2,'Ralph');
+INSERT INTO voters (id, poll_id, name) VALUES (1, 'fc46c0d1-7045-4d0e-a4de-39401ccd2a67', 'Homer');
+INSERT INTO voters (id, poll_id, name) VALUES (2, 'fc46c0d1-7045-4d0e-a4de-39401ccd2a67', 'Marge');
+INSERT INTO voters (id, poll_id, name) VALUES (3, 'fc46c0d1-7045-4d0e-a4de-39401ccd2a67', 'Ned');
 
 INSERT INTO voters_options (id, option_id, voter_id, rank) VALUES (1,1,1,2);
 INSERT INTO voters_options (id, option_id, voter_id, rank) VALUES (2,2,1,1);
@@ -36,17 +25,3 @@ INSERT INTO voters_options (id, option_id, voter_id, rank) VALUES (13,1,4,1);
 INSERT INTO voters_options (id, option_id, voter_id, rank) VALUES (14,2,4,2);
 INSERT INTO voters_options (id, option_id, voter_id, rank) VALUES (15,3,4,3);
 INSERT INTO voters_options (id, option_id, voter_id, rank) VALUES (16,4,4,4);
-INSERT INTO voters_options (id, option_id, voter_id, rank) VALUES (17,1,5,2);
-INSERT INTO voters_options (id, option_id, voter_id, rank) VALUES (18,2,5,1);
-INSERT INTO voters_options (id, option_id, voter_id, rank) VALUES (19,3,5,4);
-INSERT INTO voters_options (id, option_id, voter_id, rank) VALUES (20,4,5,3);
-
-INSERT INTO voters_options (id, option_id, voter_id, rank) VALUES (21,5,6,2);
-INSERT INTO voters_options (id, option_id, voter_id, rank) VALUES (22,6,6,1);
-INSERT INTO voters_options (id, option_id, voter_id, rank) VALUES (23,7,6,3);
-INSERT INTO voters_options (id, option_id, voter_id, rank) VALUES (24,5,7,1);
-INSERT INTO voters_options (id, option_id, voter_id, rank) VALUES (25,6,7,2);
-INSERT INTO voters_options (id, option_id, voter_id, rank) VALUES (26,7,7,3);
-INSERT INTO voters_options (id, option_id, voter_id, rank) VALUES (27,5,8,3);
-INSERT INTO voters_options (id, option_id, voter_id, rank) VALUES (28,6,8,2);
-INSERT INTO voters_options (id, option_id, voter_id, rank) VALUES (29,7,8,1);
