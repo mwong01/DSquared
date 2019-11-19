@@ -90,8 +90,7 @@ router.post("/", (req, res) => {
 router.get("/:id/links", (req, res) => {
   const id = req.params.id
   database.getPoll(id).then((poll) => {
-
-    res.render("links");
+  res.render("links");
   })
   
 });
@@ -102,8 +101,10 @@ router.get("/:id/links", (req, res) => {
 **/
 
 router.get("/:public_id", (req, res) => {
-  let poll;
-  res.render("voting", poll);
+  const publicId = req.params.id
+  database.getPollByPublicId(publicId).then((poll) => {
+  res.render("voting");
+  });
 });
 
 /**
