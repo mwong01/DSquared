@@ -21,17 +21,6 @@ module.exports = function(database) {
         
       }
     });
-    //   else {  
-    //     const pollId = req.params.id
-    //     database.addPoll(pollId)
-    //     .then( (id) => {
-    //       // res.redirect("/polls/:id/links"))
-    //       res.send('i hope it worked')
-      
-    //     }).catch(e => res.send(e));
-    //   }
-    // })
-  // Page that renders admin link and shortened url for participants
   
     router.get("/polls/:id/links", (req, res) => {
       res.render("polls_links");
