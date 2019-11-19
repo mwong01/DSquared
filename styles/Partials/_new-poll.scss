@@ -1,5 +1,7 @@
 .new-poll {
-  margin: 10%;
+  margin-top: 3%;
+  margin-left: 5%;
+  margin-right: 5%;
 }
 
 .form-group {
@@ -29,4 +31,9 @@
 
 .poll-email {
   border: none;
+}
+
+.down-arrow {
+  display: flex;
+  justify-content: center;
 }
