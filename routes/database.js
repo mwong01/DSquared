@@ -33,3 +33,12 @@ const addOption = function(pollId, title) {
 
 exports.addOption = addOption;
 
+const shortenedUrlForUSer = function() {
+  return pool.query(`
+  SELECT * FROM polls
+  WHERE slug = "req.body.slug"
+  `, 
+  )
+};
+
+exports.shortenedUrlForUSer = shortenedUrlForUSer;

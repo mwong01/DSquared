@@ -51,14 +51,14 @@ router.post("/", (req, res) => {
     database.addPoll(req.body.title, req.body.description, req.body.email)
     .then( (results) => {
       const pollId = results[0].id;
-      const myChoices = req.body.choiceSub
+      // const myChoices = req.body.choiceSub
       // return database.addOption(pollId, myChoices)
       return Promise.all(req.body.choiceSub.map((choice) => database.addOption(pollId, choice)))
     }).then((result) => {
       console.log(result)
-      res.send('i hope it worked')
+      res.send('i hope it worked');
     }).catch(e => res.send(e));
-    
+    res.redirect("/:id/links");
   }
 
 
@@ -90,7 +90,8 @@ router.post("/", (req, res) => {
  *  Links page renders two links: shortened url and admin link
 **/
 router.get("/:id/links", (req, res) => {
-  res.render("polls_links");
+  const id = req.params.id
+  res.render("links");
 });
 
   
