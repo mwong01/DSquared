@@ -18,14 +18,17 @@ const addPoll = function(poll) {
     VALUES($1, $2, $3)
     RETURNING *;
     `, [poll.title, poll.description, poll.email])
-    .then(
-      (res) => {
-        console.log(res.rows)
-        return poll.query(`INSERT INTO options (choice)
-        VALUES($1)
-        RETURNING *;
-        `)
-    });
+    .then(res => res.rows);
+};
+exports.addPoll = addPoll;
+
+const addOption = function(option) {
+  return poll.query(`INSERT INTO options (title)
+    VALUES($1)
+    RETURNING *;
+    `, [option.title])
+    .then (res => res.rows);
 };
 
-exports.addPoll = addPoll;
+exports.addOption = addOption;
+
