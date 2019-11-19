@@ -12,20 +12,24 @@ const pool = new Pool({
  * @param {{tite: string, description: string, email: string}} 
  * @return {Promise<{}>} A promise to the user.
  */
-const addPoll = function(poll) {
-  return poll.query(`
+const addPoll = function(title, description = "", email) {
+  return pool.query(`
     INSERT INTO polls (title, description, email) 
     VALUES($1, $2, $3)
     RETURNING *;
-    `, [poll.title, poll.description, poll.email])
-    .then(
-      (res) => {
-        console.log(res.rows)
-        return poll.query(`INSERT INTO options (choice)
-        VALUES($1)
-        RETURNING *;
-        `)
-    });
+    `, [title, description, email])
+    .then(res => res.rows);
+};
+exports.addPoll = addPoll;
+
+const addOption = function(pollId, title) {
+  return pool.query(`
+    INSERT INTO options (poll_id, title)
+    VALUES($1, $2)
+    RETURNING *;
+    `, [pollId, title])
+    .then (res => res.rows);
 };
 
-exports.addPoll = addPoll;
+exports.addOption = addOption;
+
