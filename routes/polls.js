@@ -46,36 +46,13 @@ module.exports = function(database) {
   // Create a new poll
   
     router.post("/", (req, res) => {
-      if (req.body.title === "" || req.body.email === "") {
-        res.status(400);
-        res.send("400 error - Bad Request: No title or email entered. Please try again");   
-      } else {
-        
-      }
+
     });
 
-    /////// calls the page for voting
+    ////// Creates voting page
 
     router.get("/polls/:id", (req, res) => {
-      const tempVar = req.body;
-      const email = templateVars['email'];
-    
-      const shortURL = uuidv4();  // creates a random number for shortURL
-    
-      const startURL = req.headers.referer; //obtains href to attach to generated numbers
-    
-      const voteURL = startURL + shortURL;  // voter url
-    
-      const creatorURL = uuidv4();    // generates a random number for the admin
-    
-      const adminURL = startURL + creatorURL;  // admin address
-    
-      data['to'] = email;
-      data['text'] += 'Your poll name ' + tempVar.title + ' has been created. <br> Here is the voting link: ' + voteURL + ' .<br> Here is the admin link: ' + adminURL;
-      mg.messages().send(data, function (error, body) {  // sends the email
-        console.log(body);
-      });
-      data['text'] = '';  // data is a global var, needs to be emptied after usage
+      let tempVar;
       res.render("voting", tempVar);
     });
 
@@ -105,6 +82,14 @@ module.exports = function(database) {
     router.get("/polls/:id/links", (req, res) => {
       res.render("polls_links");
     });
+
+    /////// calls admin page
+
+    router.get("/polls/:id/admin", (req, res) => {
+      res.render("admin");
+    });
+
+    
   
     return router;
   };
