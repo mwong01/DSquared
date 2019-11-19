@@ -1,13 +1,14 @@
 
 nav {
   position: fixed;
-  height: 120px;
+  height: 100px;
   width: 100%;
   z-index: 1030;
   background-color: slategray;
   color: #FFFF;
   padding: 1em;
   top: 0;
+  font-size: 24px;
   }
 
   .flex-container {
@@ -20,6 +21,7 @@ nav {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  font-size: 70%;
+  font-size: 50%;
   align-items: center;
+  text-align: right;
   }
