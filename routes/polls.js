@@ -46,7 +46,7 @@ module.exports = function(database) {
   // Create a new poll
   
     router.post("/", (req, res) => {
-
+      
     });
 
     ////// Creates voting page

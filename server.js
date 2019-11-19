@@ -79,8 +79,12 @@ const data = {
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 app.get("/", (req, res) => {
+  res.render("index");
+});
+
+app.post("/", (req, res) => {
   const tempVar = req.body;
-  const email = templateVars['email'];
+  const email = tempVar['email'];
 
   const shortURL = uuidv4();  // creates a random number for shortURL
 
@@ -106,10 +110,6 @@ app.get("/", (req, res) => {
   } else {
     
   }
-  res.render("index");
-});
-
-app.post("/", (req, res) => {
   res.redirect("/polls")
 });
 
