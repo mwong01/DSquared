@@ -9,6 +9,18 @@
 
     <title>Decisions</title>
 
+    <style>
+      #box-two{
+        display:none;
+      }
+
+      .box{
+        display:flex;
+        justify-content: space-around;
+        width: 30%;
+      }
+    </style>
+
     <!-- font  -->
     <link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,400i,700,700i|Roboto:400,400i,700,700i&display=swap" rel="stylesheet">
 
@@ -23,33 +35,49 @@
     <script src="https://use.fontawesome.com/releases/v5.11.2/js/all.js" data-auto-a11y="true"></script>
 
   </head>
-  <header>
+<!--   <header>
     <% include partials/_header %>
-  </header>
+  </header> -->
 
   <body>
 
     <!-- make this drop down when click top right button -->
     <div id="new-poll" class="new-poll">
-      <form action="/polls/:id/" method="POST">
-        <div class="form-group">
-          <label for="poll-title">What do you need help deciding today?</label>
-          <input type="form" name="title" class="poll-title"> </input>
-
-          <label for="poll-choices">What are your choices?</label>
-          <input type="form" name="title" class="poll-choices"> </input>
-
-          <label for="poll-description">Any details you'd like to share?</label>
-          <input type="form" name="title" class="poll-description"> </input>
-
-          <label for="email">Please enter your email:</label>
-          <input type="email" name="email" class="email" id="email">
-
-          <small id="emailHelp" class="form-text text-muted">You will receive a confirmation email that contains a sharable voting link and results link</small>
-          <button type="submit" class="btn btn-primary">Submit</button>
-        </div>
-
-      </form>
+        <form action="/polls/:id/" method="POST">
+          <div class="row-container">
+            <div id="box-one">
+              <label for="poll-title">What do you need help deciding today?</label><br>
+              <input type="form" name="title" class="poll-title"> </input><br>
+    
+              <label for="poll-description">Any details you'd like to share?</label><br>
+              <input type="form" name="details" class="poll-description"> </input><br>
+    
+              <label for="email">Please enter your email:</label><br>
+              <input type="email" name="email" class="email" id="email"><br>
+    
+              <select id="options" name="choices">
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+              </select>
+              <br><br>
+              <div id="hide-button">
+                  <button id="first-button" class="btn btn-primary">Press</button>
+              </div>
+            </div>
+            <div id="box-two" class="box">
+              <article id="option-creator">
+                  
+              </article>
+              <input class="btn btn-primary" type="submit" value="Submit">
+            </div>
+    
+            <small id="emailHelp" class="form-text text-muted">You will receive a confirmation email that contains a sharable voting link and results link</small><br>
+          </div>
+        </form>
     </div>
 
     <p>
@@ -65,5 +93,34 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    
+    <script>
+      const createLiChoices = function(number){
+      let $choices = $('<article  id="choice-container">').addClass('list');
+      let markup = ``;
+      for (let i = 1; i <= number; i++) {
+        let stuff = `
+          <textarea  name="choiceSub" class="form-control" id="${i}" rows="1" style="width: 200px;" placeholder="Choose an option!"></textarea>
+        `;
+        markup += stuff;
+      }
+      return $choices.append(markup);
+    };
+    $(document).ready(function(){
+      $("#first-button").click( () => {
+        $("#hide-button").slideToggle();
+
+        event.preventDefault();
+        const choice = $("#options").serialize();
+        const number = choice.slice(choice.length-1, choice.length);
+        const numInt = parseInt(number);
+
+        $('#option-creator').append(createLiChoices(numInt));
+        setTimeout(function(){ 
+          $("#box-two").slideToggle();
+        }, 1000);
+      });
+    });
+  </script>
   </body>
 </html>

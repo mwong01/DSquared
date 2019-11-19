@@ -51,9 +51,10 @@ app.get("/", (req, res) => {
 });
 
 app.post("/", (req, res) => {
+
   res.redirect("/polls")
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, process.env.IP, function(){
   console.log(`Example app listening on port ${PORT}`);
 });
