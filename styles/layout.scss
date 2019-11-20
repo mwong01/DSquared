@@ -1,5 +1,6 @@
 // See: https://sass-lang.com/
 
+
 @import "Partials/_variables.scss";
 @import "Partials/_header.scss";
 @import "Partials/_new-poll.scss";
@@ -8,11 +9,18 @@
 
 body {
   background-color: lightgrey;
-  background-image: url("/images/decisions-background.jpg");
   top: 120px;
   position: relative;
   margin-top: 2%;
 }
 
+.home-background {
+  background-image: url("/images/decisions-background.jpg");
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+}
 
-
+.down-arrow {
+  position: relative;
+  margin-top:50%;
+}

@@ -26,7 +26,7 @@ module.exports = function() {
 router.post("/", (req, res) => {
   if (req.body.title === "" || req.body.email === "") {
     res.status(400);
-    res.send("400 error - Bad Request: No title or email entered. Please try again");   
+    res.send("400 error - Bad Request: No title or email entered. Please try again");
   }  else {
     const poll = req.body;
     database.addPoll(poll.title, poll.email, poll.description)
@@ -42,7 +42,7 @@ router.post("/", (req, res) => {
   }
 
 });
-     
+
 /**
  *  Links route
  *  Links page renders two links: url and admin link
@@ -53,10 +53,10 @@ router.get("/:id/links", (req, res) => {
   const startURL = helpers.fullURL(req) + "/polls/";
   console.log("req.headers: ", req.headers)
   const publicURL = startURL + poll.public_id;
-  const adminURL = startURL + poll.id + "/admin";  
+  const adminURL = startURL + poll.id + "/admin";
   let templateVars = {publicURL, adminURL}
   res.render("links", templateVars);
-  }); 
+  });
 });
 
 /**
@@ -78,7 +78,7 @@ router.get("/:public_id", (req, res) => {
 
 
 /**
- * Admin route 
+ * Admin route
 **/
 
 router.get("/:id/admin", (req, res) => {

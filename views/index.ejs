@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
     integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
-  <title>Decisions</title>
+  <title>DSquared - Decisions Decisions!</title>
 
   <!-- font  -->
   <link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,400i,700,700i|Roboto:400,400i,700,700i&display=swap"
@@ -28,7 +28,7 @@
 </head>
 
 
-<body>
+<body class="home-background">
 
   <header>
     <% include Partials/_header %>
@@ -47,9 +47,6 @@
   <div id="down-button" class="down-arrow">
     <i class="fas fa-chevron-circle-down fa-6x"></i>
   </div>
-
-
-  <!-- make this drop down when click top right button -->
 
   <div id="click-for-new-poll" class="new-poll">
     <form action="/polls/" method="POST">
@@ -78,16 +75,28 @@
 
           </div>
           <input class="btn btn-primary" type="submit" value="Submit">
-        </form>
-    </div>
 
-    <div class="down-arrow">
-        <i class="fas fa-chevron-circle-down fa-7x"></i>
-    </div>
+          <small id="emailHelp" class="form-text text-muted">You will receive an confirmation email that contains a
+            sharable voting link and results link</small><br>
+        </div>
+    </form>
+  </div>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script>
+    function removeButton(button) {
+      $(button).parent().remove();
+    }
+  </script>
 
-  </body>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+
+</body>
+
 </html>
