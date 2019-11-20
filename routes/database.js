@@ -12,7 +12,7 @@ const pool = new Pool({
  * @param {{tite: string, description: string, email: string}} 
  * @return {Promise<{}>} A promise to the user.
  */
-const addPoll = function(title, description = "", email) {
+const addPoll = function(title, email, description = "") {
   return pool.query(`
     INSERT INTO polls (title, description, email) 
     VALUES($1, $2, $3)
