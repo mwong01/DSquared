@@ -45,8 +45,19 @@ const getPollByPublicId = function(id) {
   WHERE public_id = $1 
   LIMIT 1`, 
   [id]).then(res => {
-  return res.rows[0]
+    return res.rows[0]
   });
 }
 
-module.exports = {getPoll, getPollByPublicId, addOption, addPoll}
+const getOptions = function(id) {
+  return pool.query(`
+  SELECT sum(options.id) as choices, options.title as choiceSub
+  FROM polls
+  JOIN options ON polls.id = poll_id
+  WHERE public_id = $1
+  GROUP BY options.title, options.id
+  ORDER BY options.id;`,
+  [id]).then(res => res.rows)
+};
+
+module.exports = {getPoll, getPollByPublicId, addOption, addPoll, getOptions}
