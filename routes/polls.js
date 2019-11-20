@@ -11,34 +11,10 @@ require('dotenv').config();
 const express = require('express');
 const router  = express.Router();
 const database = require('./database');
-require('dotenv').config();
+const emailAPI = require('./emailAPI');
+const helpers = require('./helpers');
 
-/**
- * Add a new poll to the database
-**/
 
-const url = require('url');
-
-/**
- * random generator library
-**/
-
-const uuidv4 = require('uuid/v4');
-
-/**
- * mail-gun library
-**/
-
-const mailgun = require("mailgun-js");
-const DOMAIN = process.env.DB_MAILGUNDOMAIN;
-const API = process.env.DB_MAILGUNAPI;
-const mg = mailgun({apiKey: API, domain: DOMAIN});
-const data = {
-	from: 'Excited User <the_morbidus@hotmail.com>',
-	to: 'bar@example.com, YOU@YOUR_DOMAIN_NAME',
-	subject: 'Hello',
-	text: ''
-};
 /**
  * Decision, Decision Routes
 **/
@@ -53,11 +29,11 @@ router.post("/", (req, res) => {
     res.send("400 error - Bad Request: No title or email entered. Please try again");   
   }  else {
     const poll = req.body;
-    database.addPoll(poll.title, poll.description, poll.email)
+    database.addPoll(poll.title, poll.email, poll.description)
     .then((results) => {
       const pollId = results[0].id;
-      // const myChoices = req.body.choiceSub
-      // return database.addOption(pollId, myChoices)
+      console.log("poll:", results[0]);
+      emailAPI.sendPollSubmittedEmail(req, results[0]);
       return Promise.all(req.body.choiceSub.map((choice) => database.addOption(pollId, choice)))
             .then(() => {
               res.redirect(`/polls/${pollId}/links`);
@@ -74,8 +50,12 @@ router.post("/", (req, res) => {
 router.get("/:id/links", (req, res) => {
   const id = req.params.id
   database.getPoll(id).then((poll) => {
-    const public_id = getPollByPublicId(id)
-  res.render("links");
+  const startURL = helpers.fullURL(req) + "/polls/";
+  console.log("req.headers: ", req.headers)
+  const publicURL = startURL + poll.public_id;
+  const adminURL = startURL + poll.id + "/admin";  
+  let templateVars = {publicURL, adminURL}
+  res.render("links", templateVars);
   }); 
 });
 

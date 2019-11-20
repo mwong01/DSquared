@@ -1,25 +1,33 @@
-const { Pool } = require('pg');
+const mailgun = require("mailgun-js");
+const database = require('./database');
+const helpers = require('./helpers');
 
-const pool = new Pool({
-  user: 'labber',
-  password: 'labber',
-  host: 'localhost',
-  database: 'midterm'
-});
 
-const sendPollSubmittedEmail = function() {
-  const poll = req.body;
+const DOMAIN = process.env.DB_MAILGUNDOMAIN;
+const API = process.env.DB_MAILGUNAPI;
+const mg = mailgun({apiKey: API, domain: DOMAIN});
+
+
+const sendPollSubmittedEmail = function(req, poll) {
+  const data = {
+    from: 'Excited User <the_morbidus@hotmail.com>',
+    to: 'bar@example.com, YOU@YOUR_DOMAIN_NAME',
+    subject: 'Hello',
+    text: ''
+  };
   const email = poll['email'];
-  const pollId = req.params.id 
-  const startURL = req.headers.referer; //obtains href to attach to generated numbers
-  const adminURL = startURL + pollId;  // admin page
-  const publicURL = getPollByPublicId(req.params.id);
+  const startURL = helpers.fullURL(req) + "/polls/"; 
+  const publicURL = startURL + poll.public_id;
+  const adminURL = startURL + poll.id + "/admin";  
+
   data['to'] = email;
-  data['text'] += 'Your poll name ' + poll.title + ' has been created. Here is the voting link: ' + publicURL  + ' . Here is the admin link: ' + adminURL;
-  mg.messages().send(data, function (error, body) {  // sends the email
+  data['text'] += `Your poll name ${poll.title} has been created. 
+  Here is the voting link: ${publicURL}. 
+  Here is the admin link: ${adminURL}`
+  mg.messages().send(data, function (error, body) {
     console.log(body);
   });
-  data['text'] = '';  // data is a global var, needs to be emptied after usage
+
 }
 
 module.exports = {sendPollSubmittedEmail};
