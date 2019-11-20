@@ -23,19 +23,11 @@ $(document).ready(function () {
 
 });
 
-$(document).ready(function () {
-function copyAdminLink() {
-  /* Get the text field */
-  var copyText = document.getElementById("results-url");
-
-  /* Select the text field */
+// Copy link to clipboard
+function myFunction() {
+  var copyText = document.getElementById("linksAdmin");
   copyText.select();
-  copyText.setSelectionRange(0, 99999); /*For mobile devices*/
-
-  /* Copy the text inside the text field */
+  copyText.setSelectionRange(0, 99999);
   document.execCommand("copy");
-
-  /* Alert the copied text */
   alert("Copied the text: " + copyText.value);
 }
-});

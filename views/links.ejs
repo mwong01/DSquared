@@ -27,22 +27,27 @@
       <% include partials/_header %>
     </header>
 
-    <div class="flex-container">
-      <a class="results-url" id="results-url" href="/:id/admin">
-        View your poll results (/:id/admin)
-      </a>
+    <!-- <button onclick="myFunction()">Copy to clipboard</button>
+
+      <div class="flex-container">
+        <div>
+           <a class="results-url" href="<%= adminURL %>"><%= adminURL %></a>
+            <i class="far fa-copy fa-2x"></i>
+        </div>
+      </div>
+      <div class="flex-container-2">
+        <div>
+            <a class="public-url" href="<%= publicURL %>"><%= publicURL %></a>
+             <i class="far fa-copy fa-2x"></i>
+         </div>
+      </div> -->
+
+
+      <input id="linksAdmin" type="url" value="<%= adminURL %>">
       <button onclick="myFunction()">Copy text</button>
-    </div>
-<br>
-      <a class="share-poll" href="/:id/public_id">
-        Share your poll (/polls/:public_id)
-      </a>
 
-
-    <%= publicURL %>
-
-    <%= adminURL %>
-
+      <input id="linksAdmin" type="url" value="<%= publicURL %>">
+      <button onclick="myFunction()"><i class="far fa-copy fa-2x"></i></button>
 
 
   <!-- Bootstrap JS -->
