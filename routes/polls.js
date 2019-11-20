@@ -8,6 +8,7 @@
 const express = require('express');
 const router  = express.Router();
 const database = require('./database');
+require('dotenv').config();
 
 /**
  * Add a new poll to the database
@@ -26,15 +27,15 @@ const uuidv4 = require('uuid/v4');
 **/
 
 const mailgun = require("mailgun-js");
-const DOMAIN = 'sandboxb6a25036350f4605b9c501db6b4cee76.mailgun.org';
-const mg = mailgun({apiKey: '04783a38c46ee64d48b42a58ee1227b2-09001d55-98b334e0', domain: DOMAIN});
+const DOMAIN = process.env.DB_MAILGUNDOMAIN;
+const API = process.env.DB_MAILGUNAPI;
+const mg = mailgun({apiKey: API, domain: DOMAIN});
 const data = {
 	from: 'Excited User <the_morbidus@hotmail.com>',
 	to: 'bar@example.com, YOU@YOUR_DOMAIN_NAME',
 	subject: 'Hello',
 	text: ''
 };
-
 /**
  * Decision, Decision Routes
 **/
@@ -48,24 +49,6 @@ router.post("/", (req, res) => {
     res.status(400);
     res.send("400 error - Bad Request: No title or email entered. Please try again");   
   }  else {
-
-    // Mailgun API
-    
-    const poll = req.body; // passing req.body into a temporary variable
-    // const email = poll['email'];
-    // const idURL = uuidv4();  // creates a random number for shortURL
-    // const startURL = req.headers.referer; //obtains href to attach to generated numbers
-    // const voteURL = startURL + idURL;  // voter page
-    // const adminURL = startURL + idURL;  // admin page
-    // data['to'] = email;
-    // data['text'] += 'Your poll name ' + poll.title + ' has been created. <br> Here is the voting link: ' + voteURL + ' .<br> Here is the admin link: ' + adminURL;
-    // mg.messages().send(data, function (error, body) {  // sends the email
-    //   console.log(body);
-    // });
-    // data['text'] = '';  // data is a global var, needs to be emptied after usage
-
-    // console.log(idURL)
-
     // Data from user is entered into poll
     database.addPoll(poll.title, poll.description, poll.email)
     .then( (results) => {
@@ -74,6 +57,18 @@ router.post("/", (req, res) => {
       // return database.addOption(pollId, myChoices)
       return Promise.all(req.body.choiceSub.map((choice) => database.addOption(pollId, choice)))
             .then(() => {
+              const poll = req.body; // passing req.body into a temporary variable
+              const email = poll['email'];
+              const pollId = req.params.id  // creates a random number for shortURL
+              const startURL = req.headers.referer; //obtains href to attach to generated numbers
+              const voteURL = startURL + idURL;  // voter page
+              const adminURL = startURL + pollId;  // admin page
+              data['to'] = email;
+              data['text'] += 'Your poll name ' + poll.title + ' has been created. <br> Here is the voting link: ' + voteURL + ' . Here is the admin link: ' + adminURL;
+              mg.messages().send(data, function (error, body) {  // sends the email
+                console.log(body);
+              });
+              data['text'] = '';  // data is a global var, needs to be emptied after usage
               res.redirect(`/polls/${pollId}/links`);
             })
     }).catch(e => res.send(e));
@@ -105,13 +100,13 @@ router.get("/:public_id", (req, res) => {
 });
 
 /**
- * Admin route
+ * Admin route // GIVING TROUBLE
 **/
 
-router.get("/:id/admin", (res, req) => {
+router.get("/:id/admin", (req, res) => {
   const id = req.params.id
   database.getPoll(id).then((poll) => {
-    res.render("admin")
+  res.render("admin");
   });
 });
 
@@ -123,7 +118,7 @@ router.get("/:id/admin", (res, req) => {
 router.get("/:id/results", (req, res) => {
   const id = req.params.id
   database.getPoll(id).then((poll) => {
-    res.render("results")
+    res.render("results");
   });
 });
 
