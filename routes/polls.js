@@ -72,10 +72,10 @@ router.post("/", (req, res) => {
       const pollId = results[0].id;
       // const myChoices = req.body.choiceSub
       // return database.addOption(pollId, myChoices)
-      return Promise.all(req.body.choiceSub.map((choice) => database.addOption(pollId, parseInt(choice))))
-    }).then((result) => {
-      console.log(result)
-      // res.redirect(`/${pollId}/links`);
+      return Promise.all(req.body.choiceSub.map((choice) => database.addOption(pollId, choice)))
+            .then(() => {
+              res.redirect(`/polls/${pollId}/links`);
+            })
     }).catch(e => res.send(e));
   }
 
