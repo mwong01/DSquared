@@ -51,7 +51,7 @@ router.post("/", (req, res) => {
   }  else {
     const poll = req.body;
     database.addPoll(poll.title, poll.description, poll.email)
-    .then( (results) => {
+    .then((results) => {
       const pollId = results[0].id;
       // const myChoices = req.body.choiceSub
       // return database.addOption(pollId, myChoices)
@@ -73,8 +73,7 @@ router.get("/:id/links", (req, res) => {
   database.getPoll(id).then((poll) => {
     const public_id = getPollByPublicId(id)
   res.render("links");
-  })
-  
+  }); 
 });
 
 /**
