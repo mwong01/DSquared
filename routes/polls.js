@@ -66,33 +66,17 @@ router.get("/:id/links", (req, res) => {
 
 router.get("/:public_id", (req, res) => {
   const publicId = req.params.public_id;
-  const mockDATA = {
-    choices: 4,
-    choiceSub: ['pizza', 'sushi', 'burger', 'salad']
-  };
-  let sizeNumber = 0;
-  let objectDATA = {};
+
   const optionsDATA = database.getOptions(publicId);
   optionsDATA.then((data) => {
-    console.log(data);
-    sizeNumber = data.length -1;  // gives us the number for the last spot on array
-    const findChoices = data[sizeNumber]; // copies the inner object at the end of the array
-    console.log(tempVar);
-    const temp = tempVar['choices'];
-    const temp2 = parseInt(temp);
-    console.log(temp2);
-  });
-  database.getPollByPublicId(publicId).then((poll) => {
-  res.render("voting", mockDATA);
+    let objectDATA = {};
+    objectDATA = helpers.buildChoicesObject(data);
+    database.getPollByPublicId(publicId).then((poll) => {
+      res.render("voting", objectDATA);
+      });
   });
 });
 
-/* SELECT sum(options.id) as choices, options.title as choiceSub
-FROM polls
-JOIN options ON polls.id = poll_id
-WHERE public_id = '6b541e21-b113-4f05-b1cd-77c8b71abad8'
-GROUP BY options.title, options.id
-ORDER BY options.id; */
 
 /**
  * Admin route 

@@ -45,7 +45,6 @@ const getPollByPublicId = function(id) {
   WHERE public_id = $1 
   LIMIT 1`, 
   [id]).then(res => {
-    console.log("gePollByPublicId: ", res);
     return res.rows[0]
   });
 }
