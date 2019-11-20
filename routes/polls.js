@@ -24,7 +24,6 @@ module.exports = function() {
 
 //Create a New Poll
 router.post("/", (req, res) => {
-  console.log(req.body)
   if (req.body.title === "" || req.body.email === "") {
     res.status(400);
     res.send("400 error - Bad Request: No title or email entered. Please try again");   
@@ -85,7 +84,10 @@ router.get("/:public_id", (req, res) => {
 router.get("/:id/admin", (req, res) => {
   const id = req.params.id
   database.getPoll(id).then((poll) => {
-  res.render("admin");
+  const startURL = helpers.fullURL(req) + "/polls/";
+  const resultsURL = startURL + poll.id + "/results";
+  let templateVars = {resultsURL};
+  res.render("admin", templateVars);
   });
 });
 
