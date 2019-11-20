@@ -23,7 +23,6 @@ module.exports = function() {
 
 //Create a New Poll
 router.post("/", (req, res) => {
-  console.log(req.body)
   if (req.body.title === "" || req.body.email === "") {
     res.status(400);
     res.send("400 error - Bad Request: No title or email entered. Please try again");   
