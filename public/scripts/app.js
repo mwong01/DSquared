@@ -1,29 +1,33 @@
- // Poll function for dynamic poll form
- const createLiChoices = function(number){
-  let $choices = $('<article  id="choice-container">').addClass('list');
-  let markup = ``;
-  for (let i = 1; i <= number; i++) {
-    let singleChoice = `
-      <textarea name="choiceSub[${i}]" class="form-control" rows="1" style="width: 200px;" placeholder="Choose an option!"></textarea>
-    `;
-    markup += singleChoice;
-  }
-  return $choices.append(markup);
-};
+// Poll function for dynamic poll form
+
 
 // AJAX REQUESTS
-$(document).ready(function(){
-  $("#first-button").click( () => {
-    $("#hide-button").slideToggle();
-
+$(document).ready(function () {
+  let number = 3;
+  $("#first-button").click(() => {
     event.preventDefault();
-    const choice = $("#options").serialize();
-    const number = choice.slice(choice.length-1, choice.length);
-    const numInt = parseInt(number);
+    let $choices = $('<article  id="choice-container">').addClass('list');
+    let markup = `<div>
+      <input type="form" name="choiceSub[${number}]" class="form-control" rows="1" style="width: 200px;" placeholder="Choose an option!">
+      <button id="delete-button" onclick="removeButton(this)" type="button" class="btn btn-danger">Delete</button>
+      </div>
+    `;
+    $('#option-creator').append($choices.append(markup));
+    number++;
 
-    $('#option-creator').append(createLiChoices(numInt));
-    setTimeout(function(){ 
-      $("#box-two").slideToggle();
-    }, 1000);
   });
+
+  function removeButton(button) {
+    $(button).parent().remove();
+  }
+
 });
+
+// $(document).ready(function() {
+//   $("#down-button").click( () => {
+//     $("#click-for-new-poll").slideToggle("slow");
+
+//   }
+
+//   )
+// })

@@ -2,6 +2,7 @@
   margin-top: 3%;
   margin-left: 5%;
   margin-right: 5%;
+  // display: none;
 }
 
 .form-group {
@@ -17,23 +18,32 @@
 
 .poll-title {
   border: none;
+  background: transparent;
   color: none;
 }
 
 .poll-choice {
   border: none;
-
+  background: transparent;
 }
 
 .poll-description {
   border: none;
+  background: transparent;
 }
 
 .poll-email {
   border: none;
+  background: transparent;
 }
 
 .down-arrow {
   display: flex;
   justify-content: center;
+
+  /* down arrow bounce feature */
+  animation: bounce 0.8s;
+  animation-direction: alternate;
+  animation-iteration-count: infinite;
+  padding: 0 0 10px 0;
 }
