@@ -74,7 +74,7 @@ router.post("/", (req, res) => {
       // return database.addOption(pollId, myChoices)
       return Promise.all(req.body.choiceSub.map((choice) => database.addOption(pollId, choice)))
             .then(() => {
-              res.redirect(`/polls/${pollId}/links`);
+              res.redirect(`/polls /${pollId}/links`);
             })
     }).catch(e => res.send(e));
   }
@@ -105,13 +105,13 @@ router.get("/:public_id", (req, res) => {
 });
 
 /**
- * Admin route
+ * Admin route // GIVING TROUBLE
 **/
 
 router.get("/:id/admin", (res, req) => {
   const id = req.params.id
   database.getPoll(id).then((poll) => {
-    res.render("admin")
+    res.render("admin");
   });
 });
 
@@ -123,7 +123,7 @@ router.get("/:id/admin", (res, req) => {
 router.get("/:id/results", (req, res) => {
   const id = req.params.id
   database.getPoll(id).then((poll) => {
-    res.render("results")
+    res.render("results");
   });
 });
 
