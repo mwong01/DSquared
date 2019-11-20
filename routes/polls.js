@@ -49,7 +49,7 @@ router.post("/", (req, res) => {
     res.status(400);
     res.send("400 error - Bad Request: No title or email entered. Please try again");   
   }  else {
-    // Data from user is entered into poll
+    const poll = req.body;
     database.addPoll(poll.title, poll.description, poll.email)
     .then( (results) => {
       const pollId = results[0].id;
@@ -57,18 +57,6 @@ router.post("/", (req, res) => {
       // return database.addOption(pollId, myChoices)
       return Promise.all(req.body.choiceSub.map((choice) => database.addOption(pollId, choice)))
             .then(() => {
-              const poll = req.body; // passing req.body into a temporary variable
-              const email = poll['email'];
-              const pollId = req.params.id  // creates a random number for shortURL
-              const startURL = req.headers.referer; //obtains href to attach to generated numbers
-              const voteURL = startURL + idURL;  // voter page
-              const adminURL = startURL + pollId;  // admin page
-              data['to'] = email;
-              data['text'] += 'Your poll name ' + poll.title + ' has been created. <br> Here is the voting link: ' + voteURL + ' . Here is the admin link: ' + adminURL;
-              mg.messages().send(data, function (error, body) {  // sends the email
-                console.log(body);
-              });
-              data['text'] = '';  // data is a global var, needs to be emptied after usage
               res.redirect(`/polls/${pollId}/links`);
             })
     }).catch(e => res.send(e));
@@ -100,7 +88,7 @@ router.get("/:public_id", (req, res) => {
 });
 
 /**
- * Admin route // GIVING TROUBLE
+ * Admin route 
 **/
 
 router.get("/:id/admin", (req, res) => {
