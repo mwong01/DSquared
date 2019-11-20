@@ -4,6 +4,7 @@
 @import "partials/_header.scss";
 @import "partials/_new-poll.scss";
 
+
 body {
   background-color: lightgrey;
   background-image: url("/images/decisions-background.jpg");
@@ -12,11 +13,5 @@ body {
   margin-top: 2%;
 }
 
-.top-intro {
-  text-align: center;
-  margin: 2%;
-}
 
-.bottom-intro {
-  margin: 2%;
-}
+
