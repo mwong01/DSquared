@@ -5,6 +5,9 @@
  * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
  */
 
+ // load .env data into process.env
+require('dotenv').config();
+
 const express = require('express');
 const router  = express.Router();
 const database = require('./database');
@@ -26,8 +29,9 @@ const uuidv4 = require('uuid/v4');
 **/
 
 const mailgun = require("mailgun-js");
-const DOMAIN = 'sandboxb6a25036350f4605b9c501db6b4cee76.mailgun.org';
-const mg = mailgun({apiKey: '04783a38c46ee64d48b42a58ee1227b2-09001d55-98b334e0', domain: DOMAIN});
+const DOMAIN = process.env.DB_MAILGUNDOMAIN;
+const API = process.env.DB_MAILGUNAPI;
+const mg = mailgun({apiKey: API, domain: DOMAIN});
 const data = {
 	from: 'Excited User <the_morbidus@hotmail.com>',
 	to: 'bar@example.com, YOU@YOUR_DOMAIN_NAME',
