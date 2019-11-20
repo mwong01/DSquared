@@ -108,10 +108,10 @@ router.get("/:public_id", (req, res) => {
  * Admin route // GIVING TROUBLE
 **/
 
-router.get("/:id/admin", (res, req) => {
+router.get("/:id/admin", (req, res) => {
   const id = req.params.id
   database.getPoll(id).then((poll) => {
-    res.render("admin");
+  res.render("admin");
   });
 });
 
