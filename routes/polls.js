@@ -8,6 +8,7 @@
  // load .env data into process.env
 require('dotenv').config();
 
+
 const express = require('express');
 const router  = express.Router();
 const database = require('./database');
@@ -23,7 +24,6 @@ module.exports = function() {
 
 //Create a New Poll
 router.post("/", (req, res) => {
-  console.log(req.body)
   if (req.body.title === "" || req.body.email === "") {
     res.status(400);
     res.send("400 error - Bad Request: No title or email entered. Please try again");
@@ -64,11 +64,18 @@ router.get("/:id/links", (req, res) => {
 **/
 
 router.get("/:public_id", (req, res) => {
-  const publicId = req.params.id
-  database.getPollByPublicId(publicId).then((poll) => {
-  res.render("voting");
+  const publicId = req.params.public_id;
+
+  const optionsDATA = database.getOptions(publicId);
+  optionsDATA.then((data) => {
+    let objectDATA = {};
+    objectDATA = helpers.buildChoicesObject(data);
+    database.getPollByPublicId(publicId).then((poll) => {
+      res.render("voting", objectDATA);
+      });
   });
 });
+
 
 /**
  * Admin route
@@ -77,7 +84,10 @@ router.get("/:public_id", (req, res) => {
 router.get("/:id/admin", (req, res) => {
   const id = req.params.id
   database.getPoll(id).then((poll) => {
-  res.render("admin");
+  const startURL = helpers.fullURL(req) + "/polls/";
+  const resultsURL = startURL + poll.id + "/results";
+  let templateVars = {resultsURL};
+  res.render("admin", templateVars);
   });
 });
 
