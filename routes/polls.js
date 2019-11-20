@@ -71,7 +71,7 @@ router.post("/", (req, res) => {
 router.get("/:id/links", (req, res) => {
   const id = req.params.id
   database.getPoll(id).then((poll) => {
-    
+    const public_id = getPollByPublicId(id)
   res.render("links");
   })
   
