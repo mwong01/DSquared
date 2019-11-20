@@ -5,6 +5,9 @@
  * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
  */
 
+ // load .env data into process.env
+require('dotenv').config();
+
 const express = require('express');
 const router  = express.Router();
 const database = require('./database');
