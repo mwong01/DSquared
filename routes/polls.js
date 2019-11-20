@@ -8,6 +8,7 @@
  // load .env data into process.env
 require('dotenv').config();
 
+
 const express = require('express');
 const router  = express.Router();
 const database = require('./database');
@@ -105,9 +106,13 @@ router.get("/:id/links", (req, res) => {
 **/
 
 router.get("/:public_id", (req, res) => {
-  const publicId = req.params.id
+  const publicId = req.params.id;
+  const mockDATA = {
+    choices: 4,
+    choiceSub: ['pizza', 'sushi', 'burger', 'salad']
+  };
   database.getPollByPublicId(publicId).then((poll) => {
-  res.render("voting");
+  res.render("voting", mockDATA);
   });
 });
 

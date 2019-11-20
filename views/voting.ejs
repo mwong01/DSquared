@@ -46,7 +46,38 @@
 </head>
 <body>
 
-    <h1>Voting page</h1>
+  <div>
+    <form method="POST" action="voted">
+      <ul id="sortable" >
+        <% for (let i = 0; i < choices; i++) { %>
+          <li class="ui-state-default" id="<%= choiceSub[i] %>"><%= choiceSub[i] %></li>        
+        <% } %>
+      </ul>
+
+      <input id="name-input" class="form-control" type="text" name="voter-name" placeholder="your name - optional">
+      <input id="vote" class="btn btn-primary" type="submit" value="Submit">
+    </form>
+
+  </div>
+
+  <script>
+    $(document).ready(function(){
+        $("#vote").click((event) => {
+/*           event.preventDefault(); */
+          let idsInOrder = $("#sortable").sortable("toArray");
+          let voteObj = {};
+          voteObj['votes'] = idsInOrder;
+          $.ajax({
+            type: "POST",
+            url: '/voted',
+            data: voteObj,
+            success: function(data){
+
+            }
+          });
+        });
+    });
+  </script>
 
 </body>
 </html>
