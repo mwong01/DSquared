@@ -25,3 +25,14 @@ nav {
   align-items: center;
   text-align: right;
   }
+
+  .a {
+    text-decoration: none;
+    color: #FFFF;
+  }
+
+  a:hover {
+     color:#FFFF;
+     text-decoration:none;
+     cursor:default;
+}

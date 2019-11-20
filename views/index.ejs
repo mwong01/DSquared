@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
     integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
-  <title>Decisions</title>
+  <title>DSquared - Decisions Decisions!</title>
 
   <!-- font  -->
   <link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,400i,700,700i|Roboto:400,400i,700,700i&display=swap"
@@ -28,7 +28,7 @@
 </head>
 
 
-<body>
+<body class="home-background">
 
   <header>
     <% include partials/_header %>
@@ -47,9 +47,6 @@
   <div id="down-button" class="down-arrow">
     <i class="fas fa-chevron-circle-down fa-6x"></i>
   </div>
-
-
-  <!-- make this drop down when click top right button -->
 
   <div id="click-for-new-poll" class="new-poll">
     <form action="/polls/" method="POST">
@@ -89,7 +86,12 @@
     function removeButton(button) {
       $(button).parent().remove();
     }
+
+    function copyAdminLink(button) {
+      $(button).parent();
+    }
   </script>
+
 
   <!-- Bootstrap JS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"

@@ -50,9 +50,10 @@ router.post("/", (req, res) => {
   console.log(req.body)
   if (req.body.title === "" || req.body.email === "") {
     res.status(400);
-    res.send("400 error - Bad Request: No title or email entered. Please try again");   
+    res.send("400 error - Bad Request: No title or email entered. Please try again");
   }  else {
     // Data from user is entered into poll
+    const poll = req.body;
     database.addPoll(poll.title, poll.description, poll.email)
     .then( (results) => {
       const pollId = results[0].id;
@@ -78,7 +79,7 @@ router.post("/", (req, res) => {
   }
 
 });
-     
+
 /**
  *  Links route
  *  Links page renders two links: url and admin link
@@ -88,7 +89,7 @@ router.get("/:id/links", (req, res) => {
   database.getPoll(id).then((poll) => {
   res.render("links");
   })
-  
+
 });
 
 /**

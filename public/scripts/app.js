@@ -23,11 +23,19 @@ $(document).ready(function () {
 
 });
 
-// $(document).ready(function() {
-//   $("#down-button").click( () => {
-//     $("#click-for-new-poll").slideToggle("slow");
+$(document).ready(function () {
+function copyAdminLink() {
+  /* Get the text field */
+  var copyText = document.getElementById("results-url");
 
-//   }
+  /* Select the text field */
+  copyText.select();
+  copyText.setSelectionRange(0, 99999); /*For mobile devices*/
 
-//   )
-// })
+  /* Copy the text inside the text field */
+  document.execCommand("copy");
+
+  /* Alert the copied text */
+  alert("Copied the text: " + copyText.value);
+}
+});
