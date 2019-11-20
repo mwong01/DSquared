@@ -8,6 +8,7 @@
  // load .env data into process.env
 require('dotenv').config();
 
+
 const express = require('express');
 const router  = express.Router();
 const database = require('./database');
@@ -64,11 +65,18 @@ router.get("/:id/links", (req, res) => {
 **/
 
 router.get("/:public_id", (req, res) => {
-  const publicId = req.params.id
-  database.getPollByPublicId(publicId).then((poll) => {
-  res.render("voting");
+  const publicId = req.params.public_id;
+
+  const optionsDATA = database.getOptions(publicId);
+  optionsDATA.then((data) => {
+    let objectDATA = {};
+    objectDATA = helpers.buildChoicesObject(data);
+    database.getPollByPublicId(publicId).then((poll) => {
+      res.render("voting", objectDATA);
+      });
   });
 });
+
 
 /**
  * Admin route 
