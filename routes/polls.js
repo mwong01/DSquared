@@ -49,9 +49,8 @@ router.post("/", (req, res) => {
     res.status(400);
     res.send("400 error - Bad Request: No title or email entered. Please try again");   
   }  else {
-    // Data from user is entered into poll
     database.addPoll(poll.title, poll.description, poll.email)
-    .then( (results) => {
+    .then((results) => {
       const pollId = results[0].id;
       // const myChoices = req.body.choiceSub
       // return database.addOption(pollId, myChoices)
@@ -84,8 +83,7 @@ router.get("/:id/links", (req, res) => {
   const id = req.params.id
   database.getPoll(id).then((poll) => {
   res.render("links");
-  })
-  
+  }); 
 });
 
 /**
@@ -100,7 +98,7 @@ router.get("/:public_id", (req, res) => {
 });
 
 /**
- * Admin route // GIVING TROUBLE
+ * Admin route
 **/
 
 router.get("/:id/admin", (req, res) => {
