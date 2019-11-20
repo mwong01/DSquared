@@ -1,95 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-   <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Decisions</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+    integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
-    <!-- font  -->
-    <link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,400i,700,700i|Roboto:400,400i,700,700i&display=swap" rel="stylesheet">
+  <title>Decisions</title>
 
-    <!-- CSS  -->
-    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
-    <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
-    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
-    <!-- <link rel="stylesheet" href="/styles/nav.css" type="text/css" /> -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <!-- font  -->
+  <link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,400i,700,700i|Roboto:400,400i,700,700i&display=swap"
+    rel="stylesheet">
 
-    <script src="https://use.fontawesome.com/releases/v5.11.2/js/all.js" data-auto-a11y="true"></script>
-    <!-- AJAX queries -->
-    <script type="text/javascript" src="/scripts/app.js"></script>
-  </head>
+  <!-- CSS  -->
+  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+  <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+  <!-- <link rel="stylesheet" href="/styles/nav.css" type="text/css" /> -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+  <script src="https://use.fontawesome.com/releases/v5.11.2/js/all.js" data-auto-a11y="true"></script>
+  <!-- AJAX queries -->
+  <script type="text/javascript" src="/scripts/app.js"></script>
+</head>
 
 
-  <body>
+<body>
 
   <header>
-      <% include Partials/_header %>
-    </header>
+    <% include Partials/_header %>
+  </header>
 
-    <p class="top-intro">
-        Let's face it: decision making is <b>hard. Very hard</b>. That's why we created <i><b>Decisions, Decisions</b></i>, a web application that makes all the hard decisions for you!
-    </p>
+  <p class="top-intro">
+    Let's face it: decision making is <b>hard. Very hard</b>. That's why we created <i><b>Decisions, Decisions</b></i>,
+    a web application that makes all the hard decisions for you!
+  </p>
 
-    <p class="top-intro">
-        Bring some <b>consensus</b> to your event planning and let your peeps rank their fave choices. Get the results, share with your circle, and <b>become the cool person in your group who brought democracy to life!</b>
-      </p>
-    <!-- make this drop down when click top right button -->
+  <p class="top-intro">
+    Bring some <b>consensus</b> to your event planning and let your peeps rank their fave choices. Get the results,
+    share with your circle, and <b>become the cool person in your group who brought democracy to life!</b>
+  </p>
 
-    <div class="new-poll">
-        <form action="/polls/" method="POST">
-          <div class="row-container">
-            <div id="box-one">
-              <label for="poll-title">What do you need help to decide today?</label><br>
-              <input type="form" name="title" class="poll-title"> </input><br>
+  <div id="down-button" class="down-arrow">
+    <i class="fas fa-chevron-circle-down fa-6x"></i>
+  </div>
 
-              <label for="poll-description">Any details you'd like to share?</label><br>
-              <input type="form" name="description" class="poll-description"> </input><br>
-    
-              <label for="email">Please enter your email:</label><br>
-              <input type="email" name="email" class="email" id="email"><br>
 
-              <select id="options" name="choices">
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-              </select>
-              <br><br>
-              <div id="hide-button">
-                  <button type="button" id="first-button" class="btn btn-primary">Press</button>
-              </div>
-            </div>
-            <div id="box-two" class="box">
-              <article id="option-creator">
+  <!-- make this drop down when click top right button -->
 
-              </article>
-            <input class="btn btn-primary" type="submit" value="Submit">
-            </div>
+  <div id="click-for-new-poll" class="new-poll">
+    <form action="/polls/" method="POST">
+      <div class="row-container">
+        <div id="box-one">
+          <label for="poll-title">What do you need help to decide today?</label><br>
+          <input type="form" name="title" class="poll-title"> </input><br>
 
-            <small id="emailHelp" class="form-text text-muted">You will receive an confirmation email that contains a sharable voting link and results link</small><br>
+          <label for="poll-description">Any details you'd like to share?</label><br>
+          <input type="form" name="description" class="poll-description"> </input><br>
+
+          <label for="email">Please enter your email:</label><br>
+          <input type="email" name="email" class="email" id="email"><br>
+
+          <div>
+            <button id="first-button" type="button" class="btn btn-primary">+</button>
+            <input type="form" name="choiceSub[0]" class="form-control" rows="1" style="width: 200px;"
+              placeholder="Choose an option!">
+            <input type="form" name="choiceSub[1]" class="form-control" rows="1" style="width: 200px;"
+              placeholder="Choose an option!">
+            <input type="form" name="choiceSub[2]" class="form-control" rows="1" style="width: 200px;"
+              placeholder="Choose an option!">
+            <article id="option-creator">
+
+            </article>
+
           </div>
-        </form>
-    </div>
 
-    <div class="down-arrow">
-        <i class="fas fa-chevron-circle-down fa-7x"></i>
-    </div>
+          <input class="btn btn-primary" type="submit" value="Submit">
 
+          <small id="emailHelp" class="form-text text-muted">You will receive an confirmation email that contains a
+            sharable voting link and results link</small><br>
+        </div>
+    </form>
+  </div>
 
-    <script>
-   
-    </script>
+  <script>
+    function removeButton(button) {
+      $(button).parent().remove();
+    }
+  </script>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <!-- Bootstrap JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
 
-  </body>
+</body>
+
 </html>

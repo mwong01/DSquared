@@ -3,20 +3,16 @@
 @import "Partials/_variables.scss";
 @import "Partials/_header.scss";
 @import "Partials/_new-poll.scss";
+@import "Partials/voting_poll";
+
 
 body {
-  // background-color: lightgrey;
+  background-color: lightgrey;
   background-image: url("/images/decisions-background.jpg");
   top: 120px;
   position: relative;
   margin-top: 2%;
 }
 
-.top-intro {
-  text-align: center;
-  margin: 2%;
-}
 
-.bottom-intro {
-  margin: 2%;
-}
+

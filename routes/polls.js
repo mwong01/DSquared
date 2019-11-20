@@ -12,6 +12,7 @@ require('dotenv').config();
 const express = require('express');
 const router  = express.Router();
 const database = require('./database');
+require('dotenv').config();
 
 /**
  * Add a new poll to the database
@@ -39,7 +40,6 @@ const data = {
 	subject: 'Hello',
 	text: ''
 };
-
 /**
  * Decision, Decision Routes
 **/
@@ -53,41 +53,33 @@ router.post("/", (req, res) => {
     res.status(400);
     res.send("400 error - Bad Request: No title or email entered. Please try again");   
   }  else {
-
-    // Mailgun API
-    
-    const poll = req.body; // passing req.body into a temporary variable
-    const email = poll['email'];
-    const idURL = uuidv4();  // creates a random number for shortURL
-    const startURL = req.headers.referer; //obtains href to attach to generated numbers
-    const voteURL = startURL + idURL;  // voter page
-    const adminURL = startURL + idURL;  // admin page
-    data['to'] = email;
-    data['text'] += 'Your poll name ' + poll.title + ' has been created. <br> Here is the voting link: ' + voteURL + ' .<br> Here is the admin link: ' + adminURL;
-    mg.messages().send(data, function (error, body) {  // sends the email
-      console.log(body);
-    });
-    data['text'] = '';  // data is a global var, needs to be emptied after usage
-
-    console.log(idURL)
-
-    //DATABASE section
-    database.addPoll(poll.title, poll.description, poll.email, idURL)
+    // Data from user is entered into poll
+    database.addPoll(poll.title, poll.description, poll.email)
     .then( (results) => {
       const pollId = results[0].id;
       // const myChoices = req.body.choiceSub
       // return database.addOption(pollId, myChoices)
       return Promise.all(req.body.choiceSub.map((choice) => database.addOption(pollId, choice)))
-    }).then((result) => {
-      console.log(result)
-      res.send('i hope it worked');
+            .then(() => {
+              const poll = req.body; // passing req.body into a temporary variable
+              const email = poll['email'];
+              const pollId = req.params.id  // creates a random number for shortURL
+              const startURL = req.headers.referer; //obtains href to attach to generated numbers
+              const voteURL = startURL + idURL;  // voter page
+              const adminURL = startURL + pollId;  // admin page
+              data['to'] = email;
+              data['text'] += 'Your poll name ' + poll.title + ' has been created. <br> Here is the voting link: ' + voteURL + ' . Here is the admin link: ' + adminURL;
+              mg.messages().send(data, function (error, body) {  // sends the email
+                console.log(body);
+              });
+              data['text'] = '';  // data is a global var, needs to be emptied after usage
+              res.redirect(`/polls/${pollId}/links`);
+            })
     }).catch(e => res.send(e));
-    res.redirect("/:id/links");
   }
 
 });
-    
-  
+     
 /**
  *  Links route
  *  Links page renders two links: url and admin link
@@ -100,28 +92,49 @@ router.get("/:id/links", (req, res) => {
   
 });
 
-  
 /**
  * Voting route
 **/
 
 router.get("/:public_id", (req, res) => {
-  const publicId = req.params.id;
+  const publicId = req.params.public_id;
   const mockDATA = {
     choices: 4,
     choiceSub: ['pizza', 'sushi', 'burger', 'salad']
   };
+  let sizeNumber = 0;
+  let objectDATA = {};
+  const optionsDATA = database.getOptions(publicId);
+  optionsDATA.then((data) => {
+    console.log(data);
+    sizeNumber = data.length -1;  // gives us the number for the last spot on array
+    const findChoices = data[sizeNumber]; // copies the inner object at the end of the array
+    console.log(tempVar);
+    const temp = tempVar['choices'];
+    const temp2 = parseInt(temp);
+    console.log(temp2);
+  });
   database.getPollByPublicId(publicId).then((poll) => {
   res.render("voting", mockDATA);
   });
 });
 
+/* SELECT sum(options.id) as choices, options.title as choiceSub
+FROM polls
+JOIN options ON polls.id = poll_id
+WHERE public_id = '6b541e21-b113-4f05-b1cd-77c8b71abad8'
+GROUP BY options.title, options.id
+ORDER BY options.id; */
+
 /**
- * Admin route
+ * Admin route // GIVING TROUBLE
 **/
 
-router.get("/:id/admin", (res, req) => {
-  res.render("admin")
+router.get("/:id/admin", (req, res) => {
+  const id = req.params.id
+  database.getPoll(id).then((poll) => {
+  res.render("admin");
+  });
 });
 
 /**
@@ -130,7 +143,10 @@ router.get("/:id/admin", (res, req) => {
 
 // Results route
 router.get("/:id/results", (req, res) => {
-
+  const id = req.params.id
+  database.getPoll(id).then((poll) => {
+    res.render("results");
+  });
 });
 
 // Creates vote route

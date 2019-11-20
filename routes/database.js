@@ -12,7 +12,7 @@ const pool = new Pool({
  * @param {{tite: string, description: string, email: string}} 
  * @return {Promise<{}>} A promise to the user.
  */
-const addPoll = function(title, description = "", email) {
+const addPoll = function(title, email, description = "") {
   return pool.query(`
     INSERT INTO polls (title, description, email) 
     VALUES($1, $2, $3)
@@ -47,4 +47,15 @@ const getPollByPublicId = function(id) {
   [id]).then(res => res.rows[0])
 }
 
-module.exports = {getPoll, getPollByPublicId, addOption, addPoll}
+const getOptions = function(id) {
+  return pool.query(`
+  SELECT sum(options.id) as choices, options.title as choiceSub
+  FROM polls
+  JOIN options ON polls.id = poll_id
+  WHERE public_id = $1
+  GROUP BY options.title, options.id
+  ORDER BY options.id;`,
+  [id]).then(res => res.rows)
+};
+
+module.exports = {getPoll, getPollByPublicId, addOption, addPoll, getOptions}
