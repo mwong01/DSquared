@@ -77,7 +77,10 @@ router.get("/:public_id", (req, res) => {
 router.get("/:id/admin", (req, res) => {
   const id = req.params.id
   database.getPoll(id).then((poll) => {
-  res.render("admin");
+  const startURL = helpers.fullURL(req) + "/polls/";
+  const resultsURL = startURL + poll.id + "/results";
+  let templateVars = {resultsURL};
+  res.render("admin", templateVars);
   });
 });
 
