@@ -65,7 +65,7 @@ router.post("/", (req, res) => {
       objectDATA.id = publicId;
       res.render("voting", objectDATA);
     });
-  });  
+  });
 
   /**
    * Admin route
@@ -118,7 +118,7 @@ router.post("/", (req, res) => {
     let body = req.body;  // pass req.body to a temp variable
     votes = body['choiceSub'];  //stores the votes
     name = body['voter-name'];  // stores the voter name, '' for null
-    
+
     const id = req.params.id;
     let poll_ID;
     database.getPollIdByPublicId(id).then((data) => {
@@ -155,7 +155,7 @@ router.post("/", (req, res) => {
         emailAPI.sendVoteSubmittedEmail(req, poll);
       })
       res.redirect("/thank-you")
-    }).catch(e => res.send(e));  
+    }).catch(e => res.send(e));
   });
 
   return router;
