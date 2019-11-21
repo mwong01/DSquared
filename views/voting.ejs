@@ -16,6 +16,7 @@
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <!-- AJAX queries -->
   <script type="text/javascript" src="/scripts/app.js"></script>
+
   <script>
   $( function() {
     $( "#sortable" ).sortable();
@@ -27,7 +28,28 @@
   <header>
     <% include Partials/_header %>
   </header>
+  <h3 class="h3">Rank the options by dragging your fave choice to the top!</h3>
+
+  <div class="voter-name">
+      <input id="name-input" class="form-control" type="text" name="voter-name" placeholder="Enter your name (optional)">
+  </div>
+
   <div>
+
+    <form method="POST" action=":id/results">
+      <div class="voter-sort">
+          <ul id="sortable">
+              <% for (let i = 0; i < choices; i++) { %>
+                <li class="ui-state-default"><input style="pointer-events:none"  name="choiceSub" value="<%= choiceSub[i] %>"></li>
+              <% } %>
+            </ul>
+      </div>
+
+      <div class="voter-name">
+          <input id="vote" class="btn btn-outline-success btn-block" type="submit" value="Submit">
+      </div>
+
+
     <form method="POST" action="<%= id %>/results">
       <ul id="sortable">
         <% for (let i = 0; i < choices; i++) { %>
@@ -37,6 +59,7 @@
 
       <input id="name-input" class="form-control" type="text" name="voter-name" placeholder="your name - optional">
       <input id="vote" class="btn btn-primary" type="submit" value="Submit">
+
     </form>
 
   </div>
@@ -45,7 +68,7 @@
 
     <!-- Bootstrap links -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>  
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 

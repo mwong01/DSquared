@@ -1,6 +1,26 @@
+.ui-sortable li input {
+  width: 100%;
+}
+
+h3 {
+  margin-top: 2%;
+  text-align: center;
+  color: black;
+}
+
+.voter-sort {
+  display: flex;
+  align-items: center;
+  margin-top: 3%;
+  margin-left: 10%;
+  margin-right: 10%;
+  position: relative;
+}
+
 #sortable {
-  border: 1px solid #eee;
-  width: 142px;
+  border-width: 5px;
+  border: black;
+  width: 100%;
   min-height: 200px;
   list-style-type: none;
   margin: 0;
@@ -8,12 +28,17 @@
   float: left;
   margin-right: 10px;
 }
+
 #sortable li {
   margin: 0 5px 5px 5px;
   padding: 5px;
   font-size: 1.2em;
-  width: 120px;
+  width: 100%;
 }
-  #name-input{
-    width: 200px;
-  }
+
+.voter-name {
+  // width: 100%;
+  margin-top: 2%;
+  margin-left: 20%;
+  margin-right: 20%;
+}

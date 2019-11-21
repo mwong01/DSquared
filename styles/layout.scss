@@ -10,18 +10,27 @@
 
 body {
   background-color: whitesmoke;
-  top: 120px;
+  background-image: url("https://www.transparenttextures.com/patterns/pw-pattern.png");
+  top: 100px;
   position: relative;
   margin-top: 2%;
+  color: black;
+  top: 120px;
+  margin-top: 2%;
+  font-family: 'Roboto', sans-serif;
+  font-size: 20px;
 }
 
-.home-background {
-  background-image: url("/images/decisions-background.jpg");
-  background-repeat: no-repeat;
-  background-size: 100% auto;
+.decisions-text {
+  position: relative;
+  margin: 2%;
 }
 
 .down-arrow {
   position: relative;
-  margin-top:50%;
+  // margin-top:10%;
+}
+
+html {
+  scroll-behavior: smooth;
 }

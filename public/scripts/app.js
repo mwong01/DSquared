@@ -22,4 +22,8 @@ $(document).ready(function () {
   }
 });
 
-
+$(document).ready(function () {
+  $("#down-button").click(function() {
+    $("#click-for-new-poll").slideToggle("slow");
+  });
+})
