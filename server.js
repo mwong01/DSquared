@@ -50,10 +50,13 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
-app.post("/", (req, res) => {
-
-  res.redirect("/polls")
+/**
+ * Thank you route
+**/
+app.get("/thank-you", (req, res) => {
+  res.render("thank_you");
 });
+
 
 app.listen(PORT, process.env.IP, function(){
   console.log(`Example app listening on port ${PORT}`);
