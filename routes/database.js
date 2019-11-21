@@ -110,7 +110,7 @@ const getVotesSum = function(optionID) {
 
 const getOptionsByPollsID = function(id) {
   return pool.query(`
-  SELECT options.title as choiceSub
+  SELECT options.id, options.title as choiceSub
   FROM polls
   JOIN options ON polls.id = poll_id
   WHERE poll_id = $1

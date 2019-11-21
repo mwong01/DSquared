@@ -42,124 +42,123 @@ router.post("/", (req, res) => {
  *  Links route
  *  Links page renders two links: url and admin link
 **/
-router.get("/:id/links", (req, res) => {
-  const id = req.params.id
-  database.getPoll(id).then((poll) => {
-  const startURL = helpers.fullURL(req) + "/polls/";
-  console.log("req.headers: ", req.headers)
-  const publicURL = startURL + poll.public_id;
-  const adminURL = startURL + poll.id + "/admin";
-  let templateVars = {publicURL, adminURL}
-  res.render("links", templateVars);
+  router.get("/:id/links", (req, res) => {
+    const id = req.params.id
+    database.getPoll(id).then((poll) => {
+    const startURL = helpers.fullURL(req) + "/polls/";
+    console.log("req.headers: ", req.headers)
+    const publicURL = startURL + poll.public_id;
+    const adminURL = startURL + poll.id + "/admin";
+    let templateVars = {publicURL, adminURL}
+    res.render("links", templateVars);
+    });
   });
 
 /**
  * Voting route
 **/
-router.get("/:public_id", (req, res) => {
-  const publicId = req.params.public_id;
-  const optionsDATA = database.getOptions(publicId);
-  optionsDATA.then((data) => {
-    let objectDATA = {};
-    objectDATA = helpers.buildChoicesObject(data);
-    objectDATA.id = publicId;
-    res.render("voting", objectDATA);
-  });
+  router.get("/:public_id", (req, res) => {
+    const publicId = req.params.public_id;
+    const optionsDATA = database.getOptions(publicId);
+    optionsDATA.then((data) => {
+      let objectDATA = {};
+      objectDATA = helpers.buildChoicesObject(data);
+      objectDATA.id = publicId;
+      res.render("voting", objectDATA);
+    });
+  });  
 
-/**
- * Admin route
-**/
-router.get("/:id/admin", (req, res) => {
-  const id = req.params.id
-  database.getPoll(id).then((poll) => {
-  const startURL = helpers.fullURL(req) + "/polls/";
-  const resultsURL = startURL + poll.id + "/results";
-  let templateVars = {resultsURL};
-  res.render("admin", templateVars);
-  });
-
-/**
- * Results route
-**/
-router.get("/:id/results", (req, res) => {
-  const id = req.params.id;
-  let arrayChoices =[];  // array for options
-  let arrayChoiceID = [];  // array for options id
-  database.getOptionsByPollsID(id).then((data) => {
-    arrayChoices = helpers.buildChoicesArray(data);  //gets an array with the choices/options
-    for (let j = 0; j < arrayChoices; j++) { // this for loop is for making an array of options id
-      let singleTemp;
-      database.getOptionsId(arrayChoices[j]).then((datas) => {   //gets options id for push
-        console.log(datas);
-        singleTemp = datas['id'];
-      });
-      arrayChoiceID.push(singleTemp);
-    }
-
-    console.log(arrayChoiceID);
-  });
-
-  
-  let rankSumArray = [];  // for making an array with rank sum
-  arrayChoiceID.forEach((singleChoiceID) => {
-    database.getVotesSum(singleChoiceID).then((data) => {
-      const sum = data['sum'];
-      rankSumArray.push(sum);
+  /**
+   * Admin route
+  **/
+  router.get("/:id/admin", (req, res) => {
+    const id = req.params.id
+    database.getPoll(id).then((poll) => {
+    const startURL = helpers.fullURL(req) + "/polls/";
+    const resultsURL = startURL + poll.id + "/results";
+    let templateVars = {resultsURL};
+    res.render("admin", templateVars);
     });
   });
 
+  /**
+   * Results route
+  **/
+  router.get("/:id/results", (req, res) => {
+    const id = req.params.id;
+    let arr = [];
+    let arrOption = [];
+    let resultsObj = {};
+    database.getOptionsByPollsID(id).then((data) => {
+      const promises = []
+      data.forEach((item) => {
+        singleTemp = item['id'];
+        promises.push(database.getVotesSum(singleTemp))
+      })
 
-  database.getPoll(id).then((poll) => {
-    res.render("results");
+      Promise.all(promises).then(values => {
+        values.forEach((number) => {
+          arr.push(number['sum']);
+        });
+        data.forEach((choiceItem) => {
+          arrOption.push(choiceItem['choicesub']);
+        });
+        resultsObj['sum'] = arr;
+        resultsObj['choiceSub'] = arrOption;
+        database.getPoll(id).then((poll) => {
+          res.render("results", resultsObj);
+        });
+      });
+    });
+
   });
-});
 
 // Creates vote route
-router.post("/:id/results", (req, res) => {
-  let votes = '';    // variable to pass the votes into
-  let name = '';     // variable for the voter's name, if they wish to pass it in
-  let body = req.body;  // pass req.body to a temp variable
-  votes = body['choiceSub'];  //stores the votes
-  name = body['voter-name'];  // stores the voter name, '' for null
-  
-  const id = req.params.id;
-  let poll_ID;
-  database.getPollIdByPublicId(id).then((data) => {
-    let object = data;
-    let array = Object.values(object);
-    poll_ID = array[0];
-    console.log(poll_ID);
-    //Add to voter table
-    return database.addVoter(poll_ID, name);
-  }).then((voter) => {
-    let rankArray = [];
-    for (let i = votes.length; i > 0; i--) {
-      rankArray.push(i);
-    }
-    if (voter.name !== '') {
-        let newName = voter['id'];
+  router.post("/:id/results", (req, res) => {
+    let votes = '';    // variable to pass the votes into
+    let name = '';     // variable for the voter's name, if they wish to pass it in
+    let body = req.body;  // pass req.body to a temp variable
+    votes = body['choiceSub'];  //stores the votes
+    name = body['voter-name'];  // stores the voter name, '' for null
+    
+    const id = req.params.id;
+    let poll_ID;
+    database.getPollIdByPublicId(id).then((data) => {
+      let object = data;
+      let array = Object.values(object);
+      poll_ID = array[0];
+      console.log(poll_ID);
+      //Add to voter table
+      return database.addVoter(poll_ID, name);
+    }).then((voter) => {
+      let rankArray = [];
+      for (let i = votes.length; i > 0; i--) {
+        rankArray.push(i);
+      }
+      if (voter.name !== '') {
+          let newName = voter['id'];
+          for (let i = 0; i < votes.length; i++) {
+            database.getOptionsId(votes[i]).then((opID) => {
+              database.insertVotes(opID['id'], newName,rankArray[i])
+            })
+          }
+      } else {
         for (let i = 0; i < votes.length; i++) {
           database.getOptionsId(votes[i]).then((opID) => {
-            database.insertVotes(opID['id'], newName,rankArray[i])
+            database.insertVotes(opID['id'], voter.name,rankArray[i])
           })
         }
-    } else {
-      for (let i = 0; i < votes.length; i++) {
-        database.getOptionsId(votes[i]).then((opID) => {
-          database.insertVotes(opID['id'], voter.name,rankArray[i])
-        })
       }
-    }
-    return true;
-  })
-  .then(() => {
-    database.getPollByPublicId(id)
-    .then((poll) => {
-      emailAPI.sendVoteSubmittedEmail(req, poll);
+      return true;
     })
-    res.redirect("/thank-you")
-  }).catch(e => res.send(e));  
-});
+    .then(() => {
+      database.getPollByPublicId(id)
+      .then((poll) => {
+        emailAPI.sendVoteSubmittedEmail(req, poll);
+      })
+      res.redirect("/thank-you")
+    }).catch(e => res.send(e));  
+  });
 
   return router;
 };
