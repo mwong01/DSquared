@@ -2,10 +2,14 @@
   width: 100%;
 }
 
-h3 {
-  margin-top: 2%;
+.h3 {
+  margin-top: 3%;
   text-align: center;
   color: black;
+}
+
+.voter-name {
+  margin-top: 2%;
 }
 
 .voter-sort {
@@ -29,6 +33,11 @@ h3 {
   margin-right: 10px;
 }
 
+.form-control, .ui-state-default {
+  background: none;
+  border: none;
+}
+
 #sortable li {
   margin: 0 5px 5px 5px;
   padding: 5px;
@@ -41,4 +50,5 @@ h3 {
   margin-top: 2%;
   margin-left: 20%;
   margin-right: 20%;
+  margin-bottom: 10%;
 }
