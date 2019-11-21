@@ -82,7 +82,33 @@ router.get("/:id/admin", (req, res) => {
  * Results route
 **/
 router.get("/:id/results", (req, res) => {
-  const id = req.params.id
+  const id = req.params.id;
+  let arrayChoices =[];  // array for options
+  let arrayChoiceID = [];  // array for options id
+  database.getOptionsByPollsID(id).then((data) => {
+    arrayChoices = helpers.buildChoicesArray(data);  //gets an array with the choices/options
+    for (let j = 0; j < arrayChoices; j++) { // this for loop is for making an array of options id
+      let singleTemp;
+      database.getOptionsId(arrayChoices[j]).then((datas) => {   //gets options id for push
+        console.log(datas);
+        singleTemp = datas['id'];
+      });
+      arrayChoiceID.push(singleTemp);
+    }
+
+    console.log(arrayChoiceID);
+  });
+
+  
+  let rankSumArray = [];  // for making an array with rank sum
+  arrayChoiceID.forEach((singleChoiceID) => {
+    database.getVotesSum(singleChoiceID).then((data) => {
+      const sum = data['sum'];
+      rankSumArray.push(sum);
+    });
+  });
+
+
   database.getPoll(id).then((poll) => {
     res.render("results");
   });
