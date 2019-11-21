@@ -117,8 +117,16 @@ router.post("/:id/results", (req, res) => {
     console.log(name);
   }
 
-  res.redirect("thank_you");
+  res.redirect("/thank-you");
 });
 
   return router;
 };
+
+
+/**
+ * Results route
+**/
+router.get("/thank-you", (req, res) => {
+    res.render("thank_you");
+  });

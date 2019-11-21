@@ -4,10 +4,43 @@
   <meta charset="utf-8">
   <title>Thank You Page</title>
 
+  <meta charset="utf-8">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+    integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+  <title>Thank you</title>
+
+  <!-- font  -->
+  <link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,400i,700,700i|Roboto:400,400i,700,700i&display=swap"
+    rel="stylesheet">
+
+  <!-- CSS  -->
+  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+  <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+
+  <script src="https://use.fontawesome.com/releases/v5.11.2/js/all.js" data-auto-a11y="true"></script>
+  
+  <!-- AJAX queries -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="node_modules/confetti-js/dist/index.min.js"></script>
+  <script type="text/javascript" src="/scripts/confetti.js"></script>
+
+
 </head>
 <body>
 
-  <h1>Thank You For Voting</h1>
+  <header>
+      <% include partials/_header %>
+    </header>
+
+  <div>
+    Your vote has been recorded. Thanks and enjoy some confetti!
+  </div>
+
+  <!-- Confetti animation -->
+  <canvas id="my-canvas"></canvas>
  
 </body>
 </html>

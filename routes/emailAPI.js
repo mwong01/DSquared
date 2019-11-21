@@ -10,7 +10,7 @@ const mg = mailgun({apiKey: API, domain: DOMAIN});
 
 const sendPollSubmittedEmail = function(req, poll) {
   const data = {
-    from: 'Excited User <the_morbidus@hotmail.com>',
+    from: 'DSquared <DSquared@hotmail.com>',
     to: 'bar@example.com, YOU@YOUR_DOMAIN_NAME',
     subject: 'Hello',
     text: ''
@@ -31,7 +31,7 @@ const sendPollSubmittedEmail = function(req, poll) {
 
 const sendVoteSubmittedEmail = function(req, poll) {
   const data = {
-    from: 'Excited User <the_morbidus@hotmail.com>',
+    from: 'DSquared <DSquared@hotmail.com>',
     to: 'bar@example.com, YOU@YOUR_DOMAIN_NAME',
     subject: 'Someone voted! Checkout the results',
     text: ''
