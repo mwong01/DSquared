@@ -10,6 +10,8 @@ $(document).ready(function () {
     let markup = `<div>
       <input type="form" name="choiceSub[${number}]" class="form-control" rows="1" placeholder="Enter new option">
       <button id="delete-button" onclick="removeButton(this)" type="button" class="btn btn-danger">Remove</button>
+      <input type="text" name="choiceSub[${number}]" class="form-control" rows="1" style="width: 200px;" placeholder="Choose an option!" required="required">
+      <button id="delete-button" onclick="removeButton(this)" type="button" class="btn btn-danger">Delete</button>
       </div>
     `;
     $('#option-creator').append($choices.append(markup));

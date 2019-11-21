@@ -1,4 +1,5 @@
 $(document).ready(function () {
+  console.log(result);
 // Bar chart
 new Chart(document.getElementById("bar-chart"), {
   type: 'bar',

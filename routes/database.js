@@ -1,3 +1,4 @@
+
 const { Pool } = require('pg');
 
 const pool = new Pool({
@@ -51,7 +52,7 @@ const getPollByPublicId = function(id) {
 
 const getOptions = function(id) {
   return pool.query(`
-  SELECT sum(options.id) as choices, options.title as choiceSub
+  SELECT options.title as choiceSub
   FROM polls
   JOIN options ON polls.id = poll_id
   WHERE public_id = $1
@@ -98,4 +99,24 @@ const getPollIdByPublicId = function(id) {
   });
 }
 
-module.exports = {getPoll, getPollByPublicId, addOption, addPoll, getOptions, addVoter, getVoterId, getOptionsId, insertVotes, getPollIdByPublicId}
+const getVotesSum = function(optionID) {
+  return pool.query(`
+  SELECT SUM(rank) as sum
+  FROM voters_options
+  WHERE option_id = $1
+  GROUP BY option_id;
+  `, [optionID]).then(res => res.rows[0]);
+}
+
+const getOptionsByPollsID = function(id) {
+  return pool.query(`
+  SELECT options.id, options.title as choiceSub
+  FROM polls
+  JOIN options ON polls.id = poll_id
+  WHERE poll_id = $1
+  GROUP BY options.title, options.id
+  ORDER BY options.id;`,
+  [id]).then(res => res.rows)
+};
+
+module.exports = {getPoll, getPollByPublicId, addOption, addPoll, getOptions, addVoter, getVoterId, getOptionsId, insertVotes, getPollIdByPublicId, getVotesSum, getOptionsByPollsID}

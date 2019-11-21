@@ -24,23 +24,25 @@
   
   <!-- AJAX queries -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="node_modules/confetti-js/dist/index.min.js"></script>
-  <script type="text/javascript" src="/scripts/confetti.js"></script>
-
+  <script src="/vendor/confetti-js.min.js"></script>
 
 </head>
-<body>
 
+<body>
   <header>
       <% include partials/_header %>
     </header>
+  <div class="vote-record">
+    Thank you! Your vote has been recorded. 
+    </div>
 
-  <div>
-    Your vote has been recorded. Thanks and enjoy some confetti!
-  </div>
+    <a class="homepage-link" href="/">Want to make your own poll?</a>
 
   <!-- Confetti animation -->
-  <canvas id="my-canvas"></canvas>
- 
+  <canvas id="my-canvas" width="200" height="150"></canvas>
+  <script>const confettiSettings = { target: 'my-canvas' };
+      const confetti = new ConfettiGenerator(confettiSettings);
+      confetti.render();
+      </script>
 </body>
 </html>
