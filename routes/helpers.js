@@ -7,6 +7,7 @@ function fullURL(req) {
   });
 };
 
+
 const buildChoicesObject = function (data){
   let objectDATA = {};
   let sizeNumber = 0;
@@ -23,4 +24,19 @@ const buildChoicesObject = function (data){
   return objectDATA;
 };
 
-module.exports = {fullURL, buildChoicesObject};
+// Copy links to clipboard
+function copyAdminLink() {
+  var copyText = document.getElementById("admin_link");
+  copyText.select();
+  copyText.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+}
+
+function copyPublicLink() {
+  var copyText = document.getElementById("public_link");
+  copyText.select();
+  copyText.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+}
+
+module.exports = {fullURL, buildChoicesObject, copyAdminLink, copyPublicLink};

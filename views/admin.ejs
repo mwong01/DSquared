@@ -25,9 +25,27 @@
         <header>
         <% include partials/_header %>
       </header>
-    <h1>Admin</h1>
 
-    <%= resultsURL %>
-    
+    <h2>Your poll has been created!</h2>
+
+    <div class="border-1">
+        <h4>Share your poll!</h4>
+        <div class="flex-public-link">
+          <input class="rendered-url" id="results_link" type="url" value="<%= resultsURL %>">
+          <button class="btn btn-dark" onclick="copyResultsLink()"><i class="far fa-copy fa-2x"></i></button>
+        </div>
+      </div>
+
+
+    <script>
+    function copyResultsLink() {
+      var copyText = document.getElementById("results_link");
+      copyText.select();
+      copyText.setSelectionRange(0, 99999);
+      document.execCommand("copy");
+    }
+      </script>
+
+
 </body>
 </html>

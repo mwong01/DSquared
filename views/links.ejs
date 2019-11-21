@@ -30,21 +30,43 @@
     <% include partials/_header %>
   </header>
 
-  <h1>Your poll has been created!</h1>
+  <h2>Your poll has been created!</h2>
 
-  <div class="flex-admin-link">
-    <h2>Manage your poll:</h2>
-    <input id="admin_link" type="url" value="<%= adminURL %>">
-    <button class="btn btn-secondary" onclick="copyAdminLink()"><i class="far fa-copy fa-2x"></i></button>
+  <div class="border-1">
+    <h4>Share your poll!</h4>
+    <div class="flex-public-link">
+      <input class="rendered-url" id="public_link" type="url" value="<%= publicURL %>">
+      <button class="btn btn-dark" onclick="copyPublicLink()"><i class="far fa-copy fa-2x"></i></button>
+    </div>
   </div>
+
   <br>
-  <div class="flex-public-link">
-    <h2>Share poll with your friends! No account or login required:</h2>
-    <input id="public_link" type="url" value="<%= publicURL %>">
-    <button class="btn btn-secondary" onclick="copyPublicLink()"><i class="far fa-copy fa-2x"></i></button>
+
+  <div class="border-2">
+    <h4>See your results:</h4>
+    <div class="flex-admin-link">
+      <input class="rendered-url" id="admin_link" type="url" value="<%= adminURL %>">
+      <button class="btn btn-dark" onclick="copyAdminLink()"><i class="far fa-copy fa-2x"></i></button>
+    </div>
   </div>
 
 
+
+  <script>
+    function copyAdminLink() {
+      var copyText = document.getElementById("admin_link");
+      copyText.select();
+      copyText.setSelectionRange(0, 99999);
+      document.execCommand("copy");
+    }
+
+    function copyPublicLink() {
+      var copyText = document.getElementById("public_link");
+      copyText.select();
+      copyText.setSelectionRange(0, 99999);
+      document.execCommand("copy");
+    }
+  </script>
   <!-- Bootstrap JS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
     integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"

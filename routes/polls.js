@@ -25,8 +25,7 @@ module.exports = function() {
 //Create a New Poll & send an email
 router.post("/", (req, res) => {
   if (req.body.title === "" || req.body.email === "") {
-    res.status(400);
-    res.render('index.ejs', { notification: 'No title or email entered. Please try again'})
+    res.render('index', { notification: 'No title or email entered. Please try again'})
   }  else {
     const poll = req.body;
     database.addPoll(poll.title, poll.email, poll.description)
