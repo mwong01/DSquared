@@ -20,22 +20,6 @@ $(document).ready(function () {
   function removeButton(button) {
     $(button).parent().remove();
   }
-
 });
 
-// Copy link to clipboard - admin link
-function copyAdminLink() {
-  var copyText = document.getElementById("admin_link");
-  copyText.select();
-  copyText.setSelectionRange(0, 99999);
-  document.execCommand("copy");
-  alert("Copied the text: " + copyText.value);
-}
 
-function copyPublicLink() {
-  var copyText = document.getElementById("public_link");
-  copyText.select();
-  copyText.setSelectionRange(0, 99999);
-  document.execCommand("copy");
-  alert("Copied the text: " + copyText.value);
-}

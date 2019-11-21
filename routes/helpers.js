@@ -5,7 +5,8 @@ function fullURL(req) {
     protocol: req.protocol,
     host: req.get('host'),
   });
-} 
+};
+
 
 const buildChoicesObject = function (data){
 
@@ -20,6 +21,21 @@ const buildChoicesObject = function (data){
   objectDATA['choiceSub'] = choiceArray;
 
   return objectDATA;
+};
+
+// Copy links to clipboard
+function copyAdminLink() {
+  var copyText = document.getElementById("admin_link");
+  copyText.select();
+  copyText.setSelectionRange(0, 99999);
+  document.execCommand("copy");
 }
 
-module.exports = {fullURL, buildChoicesObject};
+function copyPublicLink() {
+  var copyText = document.getElementById("public_link");
+  copyText.select();
+  copyText.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+}
+
+module.exports = {fullURL, buildChoicesObject, copyAdminLink, copyPublicLink};

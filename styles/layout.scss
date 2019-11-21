@@ -5,10 +5,11 @@
 @import "Partials/_header.scss";
 @import "Partials/_new-poll.scss";
 @import "Partials/voting_poll";
+@import "Partials/links";
 
 
 body {
-  background-color: lightgrey;
+  background-color: #D0A24A;
   top: 120px;
   position: relative;
   margin-top: 2%;
