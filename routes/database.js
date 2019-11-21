@@ -60,4 +60,32 @@ const getOptions = function(id) {
   [id]).then(res => res.rows)
 };
 
-module.exports = {getPoll, getPollByPublicId, addOption, addPoll, getOptions}
+const addVoter = function(pollId, name) {
+  return pool.query(`
+  INSERT INTO voters(poll_id, name)
+  VALUES ($1, $2)
+  RETURNING*;`, [pollId, name]).then(res => res.rows);
+};
+
+const getVoterId = function(name) {
+  return pool.query(`
+  SELECT id
+  FROM voters
+  WHERE name = $1;`, [name]).then(res => res.rows[0]);
+};
+
+const getOptionsId = function(singleChoice) {
+  return pool.query(`
+  SELECT id
+  FROM options
+  WHERE title = $1;`, [singleChoice]).then(res=>res.rows[0]);
+}
+
+const insertVotes = function(optionId, voterId, points) {
+  return pool.query(`
+  INSERT INTO voters_options (option_id, voter_id, rank)
+  VALUES ($1, $2, $3)
+  RETURNING*;`, [optionId, voterId, points]).then(res => res.rows);
+}
+
+module.exports = {getPoll, getPollByPublicId, addOption, addPoll, getOptions, addVoter, getVoterId, getOptionsId, insertVotes}
