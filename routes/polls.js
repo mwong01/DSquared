@@ -92,7 +92,6 @@ router.get("/:id/admin", (req, res) => {
  * Results route
 **/
 
-// Results route
 router.get("/:id/results", (req, res) => {
   const id = req.params.id
   database.getPoll(id).then((poll) => {
@@ -128,8 +127,6 @@ router.post("/:id/results", (req, res) => {
     if (name !== '') {
       database.getVoterId(name).then((voID) => {
         newName = voID['id'];
-        console.log(newName);
-        console.log(typeof(newName));
         for (let i = 0; i < votes.length; i++) {
           database.getOptionsId(votes[i]).then((opID) => {
             database.insertVotes(opID['id'], newName,rankArray[i])
