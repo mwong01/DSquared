@@ -1,17 +1,37 @@
-body {
-  // background-color: lightgrey;
-  // background-image: url("/images/decisions-background.jpg");
-  color: #545149;
-  top: 120px;
-  position: relative;
-  margin-top: 2%;
-  font-family: 'Roboto', sans-serif;
-  font-size: 20px;
-}
+// body {
+//   color: black;
+//   top: 120px;
+//   position: relative;
+//   margin-top: 2%;
+//   font-family: 'Roboto', sans-serif;
+//   font-size: 20px;
+// }
 
-.top-intro {
+.opening-intro {
   bottom: 0;
   position: relative;
   text-align: center;
   margin: 2%;
+}
+
+.decisions-1 {
+  margin-top: 2%;
+  width: 70%;
+  opacity: .8;
+  transform: rotate(2deg);
+}
+
+
+.decisions-2 {
+  margin-top: 2%;
+  width: 90%;
+  opacity: .8;
+  transform: rotate(-2deg);
+}
+
+.decisions-3 {
+  margin-top: 3%;
+  width: 100%;
+  opacity: .8;
+  transform: rotate(4deg);
 }

@@ -1,14 +1,17 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+    integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
   <title>Manage Your Polls</title>
 
   <!-- font  -->
-  <link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,400i,700,700i|Roboto:400,400i,700,700i&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,400i,700,700i|Roboto:400,400i,700,700i&display=swap"
+    rel="stylesheet">
 
   <!-- CSS  -->
   <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
@@ -22,30 +25,74 @@
 </head>
 
 <body>
-        <header>
-        <% include Partials/_header %>
-      </header>
+  <header>
+    <% include Partials/_header %>
+  </header>
 
-    <h2>Your poll has been created!</h2>
+  <h2>Manage your polls:</h2>
 
-    <div class="border-1">
-        <h4>Share your poll!</h4>
-        <div class="flex-public-link">
-          <input class="rendered-url" id="results_link" type="url" value="<%= resultsURL %>">
-          <button class="btn btn-dark" onclick="copyResultsLink()"><i class="far fa-copy fa-2x"></i></button>
-        </div>
-      </div>
+  <div class="border-1">
+    <h4>NAME OF POLL!!!</h4>
+    <div class="flex-public-link">
+      <input class="rendered-url" id="public_link" type="url" value="<%= resultsURL %>" readonly>
 
+      <button class="btn btn-dark" onclick="location.href='<%= resultsURL %>';">
+        <i class="fas fa-external-link-alt fa-2x"></i>
+      </button>
 
-    <script>
+      <button class="btn btn-dark" onclick="copyPublicLink()"><i class="far fa-copy fa-2x"></i></button>
+    </div>
+  </div>
+
+  <div class="border-1">
+    <h4>POLL #2</h4>
+    <div class="flex-public-link">
+      <input class="rendered-url" id="public_link" type="url" value="<%= resultsURL %>" readonly>
+
+      <button class="btn btn-dark" onclick="location.href='<%= resultsURL %>';">
+        <i class="fas fa-external-link-alt fa-2x"></i>
+      </button>
+
+      <button class="btn btn-dark" onclick="copyPublicLink()"><i class="far fa-copy fa-2x"></i></button>
+    </div>
+  </div>
+
+  <div class="border-1">
+    <h4>POLL #3</h4>
+    <div class="flex-public-link">
+      <input class="rendered-url" id="public_link" type="url" value="<%= resultsURL %>" readonly>
+
+      <button class="btn btn-dark" onclick="location.href='<%= resultsURL %>';">
+        <i class="fas fa-external-link-alt fa-2x"></i>
+      </button>
+
+      <button class="btn btn-dark" onclick="copyPublicLink()"><i class="far fa-copy fa-2x"></i></button>
+    </div>
+  </div>
+
+  <div class="border-1">
+    <h4>POLL #4</h4>
+    <div class="flex-public-link">
+      <input class="rendered-url" id="public_link" type="url" value="<%= resultsURL %>" readonly>
+
+      <button class="btn btn-dark" onclick="location.href='<%= resultsURL %>';">
+        <i class="fas fa-external-link-alt fa-2x"></i>
+      </button>
+
+      <button class="btn btn-dark" onclick="copyPublicLink()"><i class="far fa-copy fa-2x"></i></button>
+    </div>
+  </div>
+
+  <script>
     function copyResultsLink() {
       var copyText = document.getElementById("results_link");
       copyText.select();
       copyText.setSelectionRange(0, 99999);
       document.execCommand("copy");
     }
-      </script>
+  </script>
 
 
 </body>
+
 </html>

@@ -10,15 +10,33 @@
 }
 
 .poll-title, .poll-choice, .poll-description, .poll-email {
-  border: none;
-  background: lightcoral;
-  justify-content: space-between;
+  border: darkgray;
+  border-width: 3px;
+  background: orange;
+  // justify-content: space-between;
+  size: 50px;
 }
 
-.title, .description, .email {
+.form-control {
+  border: none;
+  background: orange;
+}
+
+.title, .description, .choose-option {
   display: flex;
   justify-content: space-between;
-  width: 100%;
+  border: darkgray;
+  border-width: 3px;
+  margin: 10%;
+}
+
+.email {
+  display: flex;
+  flex-direction: column;
+  margin: 10%;
+  // line-height: 160%;
+  border: black;
+  border-width: 3px;
 }
 
 .choose-option {
@@ -37,3 +55,4 @@
   animation-iteration-count: infinite;
   padding: 0 0 10px 0;
 }
+

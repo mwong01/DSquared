@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <title>DSquared - Decisions Decisions!</title>
+  <title>dSquared</title>
 
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
@@ -14,6 +14,8 @@
   <!-- font  -->
   <link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,400i,700,700i|Roboto:400,400i,700,700i&display=swap"
     rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
 
   <!-- CSS  -->
   <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
@@ -33,12 +35,19 @@
     <% include Partials/_header %>
   </header>
 
-  <p class="top-intro">
-    Let's face it: decision making is <b>hard. Very hard</b>. That's why we created <i><b>Decisions, Decisions</b></i>,
+  <div class="decisions-text">
+    <!-- HOW TO MAKE THIS STAIR STAGGARED -->
+    <img class="decisions-1" src="/images/decisions-1.png"></img>
+    <img class="decisions-2" src="/images/decisions-2.png"></img>
+    <img class="decisions-3" src="/images/decisions-3.png"></img>
+  </div>
+
+  <p class="opening-intro">
+    Let's face it: decision making is hard. <b>Very hard</b>. That's why we created <i><b>Decisions, Decisions</b></i>,
     a web application that makes all the hard decisions for you!
   </p>
 
-  <p class="top-intro">
+  <p class="opening-intro">
     Bring some <b>consensus</b> to your event planning and let your peeps rank their fave choices. Get the results,
     share with your circle, and <b>become the cool person in your group who brought democracy to life!</b>
   </p>
@@ -54,15 +63,12 @@
   <div id="click-for-new-poll" class="new-poll">
     <form action="/polls/" method="POST">
 
-      <div class="row-container">
-
         <div id="initial-poll-setup">
 
           <div class="title">
-              <label for="poll-title">What do you need help to decide today?</label>
+              <label for="poll-title">What do you need help on deciding today?</label>
               <input type="form" name="title" class="poll-title"> </input>
           </div>
-
           <div class="description">
             <label for="poll-description">Any details you'd like to share?</label>
             <input type="form" name="description" class="poll-description"> </input>
@@ -70,38 +76,31 @@
 
         </div>
 
-        Still can't decide? Minimum of three options please!
         <div class="choose-option">
-          <button id="first-button" type="button" class="btn btn-outline-dark">Add more options</button>
+            Still can't decide? Minimum of three options please!
 
-            <input type="form" name="choiceSub[0]" class="form-control" rows="1" style="width: 200px;"
+            <input type="form" name="choiceSub[0]" class="form-control" rows="1"
               placeholder="Option 1">
-            <input type="form" name="choiceSub[1]" class="form-control" rows="1" style="width: 200px;"
+            <input type="form" name="choiceSub[1]" class="form-control" rows="1"
               placeholder="Option 2">
 
-            <input type="form" name="choiceSub[2]" class="form-control" rows="1" style="width: 200px;"
+            <input type="form" name="choiceSub[2]" class="form-control" rows="1"
               placeholder="Option 3">
+
+              <button id="first-button" type="button" class="btn btn-outline-dark">Add more options</button>
 
             <article id="option-creator">
             </article>
 
           </div>
 
-          <small id="emailHelp" class="form-text text-muted">You will receive an confirmation email that contains a
-            sharable voting link and results link</small>
-        </div>
-
         <div class="email">
           <label for="email">Please enter your email:</label>
           <input type="email" name="email" class="poll-email" id="email">
+          <input class="btn btn-outline-dark btn-block" type="submit" value="Submit">
+          <small id="emailHelp" class="form-text text-muted">You will receive an confirmation email that contains a sharable voting link and results link</small>
         </div>
-        <input class="btn btn-outline-success btn-block" type="submit" value="Submit">
       </div>
-
-
-    <!-- display: flex;
-    width: 100%;
-    justify-content: space-between; -->
 
     </form>
   </div>
