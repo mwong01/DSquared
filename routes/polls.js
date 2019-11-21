@@ -37,7 +37,6 @@ router.post("/", (req, res) => {
 });
 
 
-
 /**
  *  Links route
  *  Links page renders two links: url and admin link
@@ -53,10 +52,12 @@ router.post("/", (req, res) => {
     res.render("links", templateVars);
     });
   });
+});
 
 /**
  * Voting route
 **/
+
   router.get("/:public_id", (req, res) => {
     const publicId = req.params.public_id;
     const optionsDATA = database.getOptions(publicId);
@@ -80,6 +81,7 @@ router.post("/", (req, res) => {
     res.render("admin", templateVars);
     });
   });
+});
 
   /**
    * Results route

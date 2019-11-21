@@ -12,7 +12,7 @@ const sendPollSubmittedEmail = function(req, poll) {
   const data = {
     from: 'DSquared <DSquared@hotmail.com>',
     to: 'bar@example.com, YOU@YOUR_DOMAIN_NAME',
-    subject: 'Hello',
+    subject: 'Your poll has been created!',
     text: ''
   };
   const email = poll['email'];
