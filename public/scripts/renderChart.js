@@ -1,15 +1,14 @@
 $(document).ready(function () {
-  console.log(result);
 // Bar chart
 new Chart(document.getElementById("bar-chart"), {
   type: 'bar',
   data: {
-    labels: ["Options", "Options", "Options", "Options", "Options"],
+    labels: result['optionsList'],
     datasets: [
       {
-        label: "Title of the poll",
+        label: "",
         backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
-        data: [2478,5267,734,784,433] //query for the sum of the ranks
+        data: result['sumOfEachChoice'] //query for the sum of the ranks
       }
     ]
   },
@@ -17,8 +16,16 @@ new Chart(document.getElementById("bar-chart"), {
     legend: { display: false },
     title: {
       display: true,
-      text: 'Title of the poll'
+      text: result['title']
+    },
+    scales: {
+      yAxes: [{
+          ticks: {
+              beginAtZero: true
+          }
+      }]
     }
+
   }
   });
 });

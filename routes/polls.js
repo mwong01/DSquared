@@ -88,6 +88,10 @@ router.post("/", (req, res) => {
     let arr = [];
     let arrOption = [];
     let resultsObj = {};
+    database.getPoll(id).then((data) => {
+      resultsObj['title'] = data.title;
+    });
+
     database.getOptionsByPollsID(id).then((data) => {
       const promises = []
       data.forEach((item) => {
@@ -97,15 +101,19 @@ router.post("/", (req, res) => {
 
       Promise.all(promises).then(values => {
         values.forEach((number) => {
-          arr.push(number['sum']);
+          arr.push(parseInt(number['sum']));
         });
         data.forEach((choiceItem) => {
           arrOption.push(choiceItem['choicesub']);
         });
-        resultsObj['sum'] = arr;
-        resultsObj['choiceSub'] = arrOption;
+
+        console.log(arr);
+        console.log(arrOption);
+        resultsObj['sumOfEachChoice'] = arr;
+        resultsObj['optionsList'] = arrOption;
+        console.log(resultsObj);
         database.getPoll(id).then((poll) => {
-          res.render("results", resultsObj);
+          res.render("results", {resultsObj});
         });
       });
     });
