@@ -27,6 +27,7 @@ const sendPollSubmittedEmail = function(req, poll) {
   mg.messages().send(data, function (error, body) {
     console.log(body);
   });
+};
 
 const sendVoteSubmittedEmail = function(req, poll) {
   const data = {
@@ -45,7 +46,6 @@ const sendVoteSubmittedEmail = function(req, poll) {
   mg.messages().send(data, function (error, body) {
     console.log(body);
   });
-
-}
+};
 
 module.exports = {sendPollSubmittedEmail};

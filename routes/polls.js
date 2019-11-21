@@ -22,7 +22,7 @@ const helpers = require('./helpers');
 
 module.exports = function() {
 
-//Create a New Poll
+//Create a New Poll & send an email
 router.post("/", (req, res) => {
   if (req.body.title === "" || req.body.email === "") {
     res.status(400);
