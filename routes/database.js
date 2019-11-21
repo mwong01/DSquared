@@ -88,4 +88,14 @@ const insertVotes = function(optionId, voterId, points) {
   RETURNING*;`, [optionId, voterId, points]).then(res => res.rows);
 }
 
-module.exports = {getPoll, getPollByPublicId, addOption, addPoll, getOptions, addVoter, getVoterId, getOptionsId, insertVotes}
+const getPollIdByPublicId = function(id) {
+  return pool.query(`
+  SELECT id FROM polls 
+  WHERE public_id = $1 
+  LIMIT 1`, 
+  [id]).then(res => {
+    return res.rows[0]
+  });
+}
+
+module.exports = {getPoll, getPollByPublicId, addOption, addPoll, getOptions, addVoter, getVoterId, getOptionsId, insertVotes, getPollIdByPublicId}

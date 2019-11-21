@@ -107,31 +107,46 @@ router.post("/:id/results", (req, res) => {
   let body = req.body;  // pass req.body to a temp variable
   votes = body['choiceSub'];  //stores the votes
   name = body['voter-name'];  // stores the voter name, '' for null
-
-  const id = req.params.id;
-
-  ///////////////
-  //add to Voter table
-  //////////////
-  database.addVoter(id, name);
   
-  let rankArray = [];
-  for (let i = votes.length; i > 0; i--) {
-    rankArray.push(i);
-  }
-  let newName = '';
-  if (name !== '') {
-    database.getVoterId(name).then((voID) => {
-      newName = voID['id'];
-    });
-  }
-  for (let i = 0; i < votes.length; i++) {
-    database.getOptionsId(votes[i]).then((opID) => {
-      database.insertVotes(opID['id'], newName,rankArray[i])
-    })
-  }
-  
-  res.redirect("thank_you");
+  const deleteLine = req.headers.origin + '/polls/';
+  const id = req.headers.referer.replace(deleteLine, "");
+  let poll_ID;
+  database.getPollIdByPublicId(id).then((data) => {
+    let object = data;
+    let array = Object.values(object);
+    poll_ID = array[0];
+    console.log(poll_ID);
+    ///////////////
+    //add to Voter table
+    //////////////
+    database.addVoter(poll_ID, name);
+    let rankArray = [];
+    for (let i = votes.length; i > 0; i--) {
+      rankArray.push(i);
+    }
+    let newName;
+    if (name !== '') {
+      database.getVoterId(name).then((voID) => {
+        newName = voID['id'];
+        console.log(newName);
+        console.log(typeof(newName));
+        for (let i = 0; i < votes.length; i++) {
+          database.getOptionsId(votes[i]).then((opID) => {
+            database.insertVotes(opID['id'], newName,rankArray[i])
+          })
+        }
+      });
+    }
+    for (let i = 0; i < votes.length; i++) {
+      database.getOptionsId(votes[i]).then((opID) => {
+        database.insertVotes(opID['id'], newName,rankArray[i])
+      })
+    }
+
+    
+    res.redirect("thank_you");
+  });
+
 });
 
   return router;
