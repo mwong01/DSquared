@@ -132,21 +132,21 @@ router.post("/:id/results", (req, res) => {
           })
         }
       });
+    } else {
+      for (let i = 0; i < votes.length; i++) {
+        database.getOptionsId(votes[i]).then((opID) => {
+          database.insertVotes(opID['id'], newName,rankArray[i])
+        })
+      }
     }
-    for (let i = 0; i < votes.length; i++) {
-      database.getOptionsId(votes[i]).then((opID) => {
-        database.insertVotes(opID['id'], newName,rankArray[i])
-      })
-    }
-
-    
 
   res.redirect("/thank-you");
 
+  });
+
 });
 
-  return router;
-};
+
 
 
 /**
@@ -155,3 +155,6 @@ router.post("/:id/results", (req, res) => {
 router.get("/thank-you", (req, res) => {
     res.render("thank_you");
   });
+
+  return router;
+};
