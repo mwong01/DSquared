@@ -1,17 +1,27 @@
 // See: https://sass-lang.com/
 
-@import "partials/_variables.scss";
-@import "partials/_header.scss";
-@import "partials/_new-poll.scss";
 
+@import "Partials/_variables.scss";
+@import "Partials/_header.scss";
+@import "Partials/_new-poll.scss";
+@import "Partials/voting_poll";
+@import "Partials/links";
+@import "Partials/thank_you";
 
 body {
-  background-color: lightgrey;
-  background-image: url("/images/decisions-background.jpg");
+  background-color: whitesmoke;
   top: 120px;
   position: relative;
   margin-top: 2%;
 }
 
+.home-background {
+  background-image: url("/images/decisions-background.jpg");
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+}
 
-
+.down-arrow {
+  position: relative;
+  margin-top:50%;
+}

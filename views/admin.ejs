@@ -1,15 +1,51 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-</head>
-<body>
-    <h1>Admin</h1>
+  <meta charset="utf-8">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
-    <%= resultsURL %>
-    
+  <title>Manage Your Polls</title>
+
+  <!-- font  -->
+  <link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,400i,700,700i|Roboto:400,400i,700,700i&display=swap" rel="stylesheet">
+
+  <!-- CSS  -->
+  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+  <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+  <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+  <script src="https://use.fontawesome.com/releases/v5.11.2/js/all.js" data-auto-a11y="true"></script>
+  <!-- AJAX queries -->
+  <script type="text/javascript" src="/scripts/app.js"></script>
+</head>
+
+<body>
+        <header>
+        <% include Partials/_header %>
+      </header>
+
+    <h2>Your poll has been created!</h2>
+
+    <div class="border-1">
+        <h4>Share your poll!</h4>
+        <div class="flex-public-link">
+          <input class="rendered-url" id="results_link" type="url" value="<%= resultsURL %>">
+          <button class="btn btn-dark" onclick="copyResultsLink()"><i class="far fa-copy fa-2x"></i></button>
+        </div>
+      </div>
+
+
+    <script>
+    function copyResultsLink() {
+      var copyText = document.getElementById("results_link");
+      copyText.select();
+      copyText.setSelectionRange(0, 99999);
+      document.execCommand("copy");
+    }
+      </script>
+
+
 </body>
 </html>

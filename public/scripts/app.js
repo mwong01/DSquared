@@ -20,14 +20,6 @@ $(document).ready(function () {
   function removeButton(button) {
     $(button).parent().remove();
   }
-
 });
 
-// $(document).ready(function() {
-//   $("#down-button").click( () => {
-//     $("#click-for-new-poll").slideToggle("slow");
 
-//   }
-
-//   )
-// })
