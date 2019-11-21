@@ -36,6 +36,8 @@ router.post("/", (req, res) => {
   }
 });
 
+
+
 /**
  *  Links route
  *  Links page renders two links: url and admin link
@@ -61,6 +63,7 @@ router.get("/:public_id", (req, res) => {
   optionsDATA.then((data) => {
     let objectDATA = {};
     objectDATA = helpers.buildChoicesObject(data);
+    objectDATA.id = publicId;
     res.render("voting", objectDATA);
   });
 });
@@ -96,8 +99,7 @@ router.post("/:id/results", (req, res) => {
   votes = body['choiceSub'];  //stores the votes
   name = body['voter-name'];  // stores the voter name, '' for null
   
-  const deleteLine = req.headers.origin + '/polls/';
-  const id = req.headers.referer.replace(deleteLine, "");
+  const id = req.params.id;
   let poll_ID;
   database.getPollIdByPublicId(id).then((data) => {
     let object = data;
@@ -105,38 +107,35 @@ router.post("/:id/results", (req, res) => {
     poll_ID = array[0];
     console.log(poll_ID);
     //Add to voter table
-    database.addVoter(poll_ID, name);
+    return database.addVoter(poll_ID, name);
+  }).then((voter) => {
     let rankArray = [];
     for (let i = votes.length; i > 0; i--) {
       rankArray.push(i);
     }
-    let newName;
-    if (name !== '') {
-      database.getVoterId(name).then((voID) => {
-        newName = voID['id'];
+    if (voter.name !== '') {
+        let newName = voter['id'];
         for (let i = 0; i < votes.length; i++) {
           database.getOptionsId(votes[i]).then((opID) => {
             database.insertVotes(opID['id'], newName,rankArray[i])
           })
         }
-      });
     } else {
       for (let i = 0; i < votes.length; i++) {
         database.getOptionsId(votes[i]).then((opID) => {
-          database.insertVotes(opID['id'], newName,rankArray[i])
+          database.insertVotes(opID['id'], voter.name,rankArray[i])
         })
       }
-    }  
-  }).then(() => {
-    // emailAPI.sendVoteSubmittedEmail(req)
+    }
+    return true;
+  })
+  .then(() => {
+    database.getPollByPublicId(id)
+    .then((poll) => {
+      emailAPI.sendVoteSubmittedEmail(req, poll);
+    })
     res.redirect("/thank-you")
-  }).catch(e => res.send(e));
-});
-/**
- * Thank you route
-**/
-router.get("/thank-you", (req, res) => {
-  res.render("thank_you");
+  }).catch(e => res.send(e));  
 });
 
   return router;

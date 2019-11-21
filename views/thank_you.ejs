@@ -24,8 +24,8 @@
   
   <!-- AJAX queries -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="node_modules/confetti-js/dist/index.min.js"></script>
-  <script type="text/javascript" src="/scripts/confetti.js"></script>
+  <script src="/vendor/confetti-js.min.js"></script>
+
 </head>
 
 <body>
@@ -37,5 +37,9 @@
   </div>
   <!-- Confetti animation -->
   <canvas id="my-canvas"></canvas>
+  <script>const confettiSettings = { target: 'my-canvas' };
+      const confetti = new ConfettiGenerator(confettiSettings);
+      confetti.render();
+      </script>
 </body>
 </html>

@@ -98,4 +98,5 @@ const getPollIdByPublicId = function(id) {
   });
 }
 
+
 module.exports = {getPoll, getPollByPublicId, addOption, addPoll, getOptions, addVoter, getVoterId, getOptionsId, insertVotes, getPollIdByPublicId}
