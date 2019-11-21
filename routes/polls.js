@@ -5,7 +5,6 @@
  * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
  */
 
- // load .env data into process.env
 require('dotenv').config();
 
 const express = require('express');
@@ -14,18 +13,14 @@ const database = require('./database');
 const emailAPI = require('./emailAPI');
 const helpers = require('./helpers');
 
-
 /**
  * Decision, Decision Routes
 **/
-
+//Create a New Poll & send an email
 module.exports = function() {
-
-//Create a New Poll
 router.post("/", (req, res) => {
   if (req.body.title === "" || req.body.email === "") {
-    res.status(400);
-    res.send("400 error - Bad Request: No title or email entered. Please try again");   
+    res.render('index', { notification: 'No title or email entered. Please try again'})
   }  else {
     const poll = req.body;
     database.addPoll(poll.title, poll.email, poll.description)
@@ -39,9 +34,8 @@ router.post("/", (req, res) => {
             })
     }).catch(e => res.send(e));
   }
-
 });
-     
+
 /**
  *  Links route
  *  Links page renders two links: url and admin link
@@ -52,27 +46,29 @@ router.get("/:id/links", (req, res) => {
   const startURL = helpers.fullURL(req) + "/polls/";
   console.log("req.headers: ", req.headers)
   const publicURL = startURL + poll.public_id;
-  const adminURL = startURL + poll.id + "/admin";  
+  const adminURL = startURL + poll.id + "/admin";
   let templateVars = {publicURL, adminURL}
   res.render("links", templateVars);
-  }); 
+  });
 });
 
 /**
  * Voting route
 **/
-
 router.get("/:public_id", (req, res) => {
-  const publicId = req.params.id
-  database.getPollByPublicId(publicId).then((poll) => {
-  res.render("voting");
+  const publicId = req.params.public_id;
+  const optionsDATA = database.getOptions(publicId);
+  optionsDATA.then((data) => {
+    let objectDATA = {};
+    objectDATA = helpers.buildChoicesObject(data);
+    objectDATA.id = publicId;
+    res.render("voting", objectDATA);
   });
 });
 
 /**
- * Admin route 
+ * Admin route
 **/
-
 router.get("/:id/admin", (req, res) => {
   const id = req.params.id
   database.getPoll(id).then((poll) => {
@@ -86,8 +82,6 @@ router.get("/:id/admin", (req, res) => {
 /**
  * Results route
 **/
-
-// Results route
 router.get("/:id/results", (req, res) => {
   const id = req.params.id
   database.getPoll(id).then((poll) => {
@@ -97,19 +91,49 @@ router.get("/:id/results", (req, res) => {
 
 // Creates vote route
 router.post("/:id/results", (req, res) => {
-  console.log(req.body);  // just have this to see if data is comign across
   let votes = '';    // variable to pass the votes into
   let name = '';     // variable for the voter's name, if they wish to pass it in
-  let temp = req.body;  // pass req.body to a temp variable
-  if (temp['votes']) {
-    votes = temp.votes;  //stores the votes
-    console.log(votes);
-  } else {
-    name = temp['voter-name'];  // stores the voter name, '' for null
-    console.log(name);
-  }
-
-  res.redirect("thank_you");
+  let body = req.body;  // pass req.body to a temp variable
+  votes = body['choiceSub'];  //stores the votes
+  name = body['voter-name'];  // stores the voter name, '' for null
+  
+  const id = req.params.id;
+  let poll_ID;
+  database.getPollIdByPublicId(id).then((data) => {
+    let object = data;
+    let array = Object.values(object);
+    poll_ID = array[0];
+    console.log(poll_ID);
+    //Add to voter table
+    return database.addVoter(poll_ID, name);
+  }).then((voter) => {
+    let rankArray = [];
+    for (let i = votes.length; i > 0; i--) {
+      rankArray.push(i);
+    }
+    if (voter.name !== '') {
+        let newName = voter['id'];
+        for (let i = 0; i < votes.length; i++) {
+          database.getOptionsId(votes[i]).then((opID) => {
+            database.insertVotes(opID['id'], newName,rankArray[i])
+          })
+        }
+    } else {
+      for (let i = 0; i < votes.length; i++) {
+        database.getOptionsId(votes[i]).then((opID) => {
+          database.insertVotes(opID['id'], voter.name,rankArray[i])
+        })
+      }
+    }
+    return true;
+  })
+  .then(() => {
+    database.getPollByPublicId(id)
+    .then((poll) => {
+      emailAPI.sendVoteSubmittedEmail(req, poll);
+    })
+    res.redirect("/thank-you")
+  }).catch(e => res.send(e));  
 });
 
   return router;
