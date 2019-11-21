@@ -48,37 +48,62 @@
     <i class="fas fa-chevron-circle-down fa-6x"></i>
   </div>
 
+  <% if (typeof notification !== 'undefined') { %>
+    <div class="error-div"><%= notification %></div>
+  <% } %>
+
   <div id="click-for-new-poll" class="new-poll">
     <form action="/polls/" method="POST">
+
       <div class="row-container">
-        <div id="box-one">
-          <label for="poll-title">What do you need help to decide today?</label><br>
-          <input type="form" name="title" class="poll-title"> </input><br>
 
-          <label for="poll-description">Any details you'd like to share?</label><br>
-          <input type="form" name="description" class="poll-description"> </input><br>
+        <div id="initial-poll-setup">
 
-          <label for="email">Please enter your email:</label><br>
-          <input type="email" name="email" class="email" id="email"><br>
+          <div class="title">
+              <label for="poll-title">What do you need help to decide today?</label>
+              <input type="form" name="title" class="poll-title"> </input>
+          </div>
 
-          <div>
-            <button id="first-button" type="button" class="btn btn-primary">+</button>
+          <div class="description">
+            <label for="poll-description">Any details you'd like to share?</label>
+            <input type="form" name="description" class="poll-description"> </input>
+          </div>
+
+        </div>
+
+        Still can't decide? Minimum of three options please!
+        <div class="choose-option">
+          <button id="first-button" type="button" class="btn btn-outline-dark">Add more options</button>
+
             <input type="form" name="choiceSub[0]" class="form-control" rows="1" style="width: 200px;"
-              placeholder="Choose an option!">
+              placeholder="Option 1">
             <input type="form" name="choiceSub[1]" class="form-control" rows="1" style="width: 200px;"
-              placeholder="Choose an option!">
-            <input type="form" name="choiceSub[2]" class="form-control" rows="1" style="width: 200px;"
-              placeholder="Choose an option!">
-            <article id="option-creator">
+              placeholder="Option 2">
 
+            <input type="form" name="choiceSub[2]" class="form-control" rows="1" style="width: 200px;"
+              placeholder="Option 3">
+
+            <article id="option-creator">
             </article>
 
           </div>
-          <input class="btn btn-primary" type="submit" value="Submit">
 
           <small id="emailHelp" class="form-text text-muted">You will receive an confirmation email that contains a
-            sharable voting link and results link</small><br>
+            sharable voting link and results link</small>
         </div>
+
+        <div class="email">
+          <label for="email">Please enter your email:</label>
+          <input type="email" name="email" class="poll-email" id="email">
+        </div>
+        <input class="btn btn-secondary btn-block" type="submit" value="Submit">
+      </div>
+
+
+    <!-- display: flex;
+    width: 100%;
+    justify-content: space-between; -->
+
     </form>
   </div>
 
@@ -87,7 +112,6 @@
       $(button).parent().remove();
     }
   </script>
-
 
   <!-- Bootstrap JS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
