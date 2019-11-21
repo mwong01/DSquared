@@ -35,7 +35,12 @@
   <div class="border-1">
     <h4>Share your poll!</h4>
     <div class="flex-public-link">
-      <input class="rendered-url" id="public_link" type="url" value="<%= publicURL %>">
+      <input class="rendered-url" id="public_link" type="url" value="<%= publicURL %>" readonly>
+
+      <button class="btn btn-dark" onclick="location.href='<%= publicURL %>';">
+        <i class="fas fa-external-link-alt fa-2x"></i>
+      </button>
+
       <button class="btn btn-dark" onclick="copyPublicLink()"><i class="far fa-copy fa-2x"></i></button>
     </div>
   </div>
@@ -45,7 +50,12 @@
   <div class="border-2">
     <h4>See your results:</h4>
     <div class="flex-admin-link">
-      <input class="rendered-url" id="admin_link" type="url" value="<%= adminURL %>">
+      <input class="rendered-url" id="admin_link" type="url" value="<%= adminURL %>" readonly>
+
+      <button class="btn btn-dark" onclick="location.href='<%= adminURL %>';">
+          <i class="fas fa-external-link-alt fa-2x"></i>
+        </button>
+
       <button class="btn btn-dark" onclick="copyAdminLink()"><i class="far fa-copy fa-2x"></i></button>
     </div>
   </div>
