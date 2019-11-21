@@ -4,7 +4,7 @@ nav {
   height: 100px;
   width: 100%;
   z-index: 1030;
-  background-color: slategray;
+  background-color: black;
   color: #FFFF;
   padding: 1em;
   top: 0;
@@ -15,6 +15,7 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  color: #FFFF;
   }
 
   .create-poll {
@@ -24,16 +25,12 @@ nav {
   font-size: 50%;
   }
 
-  .a {
-    text-decoration: none;
-    color: #FFFF;
-  }
-
-  a:hover {
-     color:#FFFF;
-     text-decoration:none;
-}
-
 .error-div {
   color: red;
+}
+
+a, a:visited, a:link {
+  color: white;
+  font-family: 'Open Sans', sans-serif;
+  text-decoration: none;
 }
