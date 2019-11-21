@@ -47,6 +47,9 @@
     <i class="fas fa-chevron-circle-down fa-6x"></i>
   </div>
 
+  <% if (typeof notification !== 'undefined') { %>
+    <div class="error-div"><%= notification %></div>
+  <% } %>
   <div id="click-for-new-poll" class="new-poll">
     <form action="/polls/" method="POST">
       <div class="row-container">

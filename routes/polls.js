@@ -26,7 +26,7 @@ module.exports = function() {
 router.post("/", (req, res) => {
   if (req.body.title === "" || req.body.email === "") {
     res.status(400);
-    res.send("400 error - Bad Request: No title or email entered. Please try again");
+    res.render('index.ejs', { notification: 'No title or email entered. Please try again'})
   }  else {
     const poll = req.body;
     database.addPoll(poll.title, poll.email, poll.description)
