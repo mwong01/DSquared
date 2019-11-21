@@ -15,20 +15,6 @@ $(document).ready(function () {
     $('#option-creator').append($choices.append(markup));
     number++;
 
-    $("#vote").click((event) => {
-      let idsInOrder = $("#sortable").sortable("toArray");
-      let voteObj = {};
-      voteObj['votes'] = idsInOrder;
-      $.ajax({
-        type: "POST",
-        url: '/voted',
-        data: voteObj,
-        success: function(data){
-
-        }
-      });
-    });
-
   });
 
   function removeButton(button) {

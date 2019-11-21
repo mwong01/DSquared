@@ -64,14 +64,11 @@ router.get("/:id/links", (req, res) => {
 
 router.get("/:public_id", (req, res) => {
   const publicId = req.params.public_id;
-
   const optionsDATA = database.getOptions(publicId);
   optionsDATA.then((data) => {
     let objectDATA = {};
     objectDATA = helpers.buildChoicesObject(data);
-    database.getPollByPublicId(publicId).then((poll) => {
-      res.render("voting", objectDATA);
-      });
+    res.render("voting", objectDATA);
   });
 });
 
@@ -94,7 +91,6 @@ router.get("/:id/admin", (req, res) => {
  * Results route
 **/
 
-// Results route
 router.get("/:id/results", (req, res) => {
   const id = req.params.id
   database.getPoll(id).then((poll) => {
@@ -104,19 +100,49 @@ router.get("/:id/results", (req, res) => {
 
 // Creates vote route
 router.post("/:id/results", (req, res) => {
-  console.log(req.body);  // just have this to see if data is comign across
   let votes = '';    // variable to pass the votes into
   let name = '';     // variable for the voter's name, if they wish to pass it in
-  let temp = req.body;  // pass req.body to a temp variable
-  if (temp['votes']) {
-    votes = temp.votes;  //stores the votes
-    console.log(votes);
-  } else {
-    name = temp['voter-name'];  // stores the voter name, '' for null
-    console.log(name);
-  }
+  let body = req.body;  // pass req.body to a temp variable
+  votes = body['choiceSub'];  //stores the votes
+  name = body['voter-name'];  // stores the voter name, '' for null
+  
+  const deleteLine = req.headers.origin + '/polls/';
+  const id = req.headers.referer.replace(deleteLine, "");
+  let poll_ID;
+  database.getPollIdByPublicId(id).then((data) => {
+    let object = data;
+    let array = Object.values(object);
+    poll_ID = array[0];
+    console.log(poll_ID);
+    ///////////////
+    //add to Voter table
+    //////////////
+    database.addVoter(poll_ID, name);
+    let rankArray = [];
+    for (let i = votes.length; i > 0; i--) {
+      rankArray.push(i);
+    }
+    let newName;
+    if (name !== '') {
+      database.getVoterId(name).then((voID) => {
+        newName = voID['id'];
+        for (let i = 0; i < votes.length; i++) {
+          database.getOptionsId(votes[i]).then((opID) => {
+            database.insertVotes(opID['id'], newName,rankArray[i])
+          })
+        }
+      });
+    }
+    for (let i = 0; i < votes.length; i++) {
+      database.getOptionsId(votes[i]).then((opID) => {
+        database.insertVotes(opID['id'], newName,rankArray[i])
+      })
+    }
+
+    
 
   res.redirect("/thank-you");
+
 });
 
   return router;
