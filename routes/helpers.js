@@ -23,6 +23,14 @@ const buildChoicesObject = function (data){
   return objectDATA;
 };
 
+const buildChoicesArray = function (data){
+  let choiceArray = [];
+  data.forEach((value) => {
+    choiceArray.push(value['choicesub']);
+  });
+  return choiceArray;
+};
+
 // Copy links to clipboard
 function copyAdminLink() {
   var copyText = document.getElementById("admin_link");
@@ -38,4 +46,4 @@ function copyPublicLink() {
   document.execCommand("copy");
 }
 
-module.exports = {fullURL, buildChoicesObject, copyAdminLink, copyPublicLink};
+module.exports = {fullURL, buildChoicesObject, copyAdminLink, copyPublicLink, buildChoicesArray};

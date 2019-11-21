@@ -59,7 +59,23 @@
   <section id="click-for-new-poll" class="new-poll">
     <form action="/polls/" method="POST">
 
+
       <div id="initial-poll-setup">
+
+      <div class="row-container">
+
+        <div id="initial-poll-setup">
+
+          <div class="title">
+              <label for="poll-title">What do you need help to decide today?</label>
+              <input type="text" name="title" class="poll-title" required="required"> </input>
+          </div>
+
+          <div class="description">
+            <label for="poll-description">Any details you'd like to share?</label>
+            <input type="text" name="description" class="poll-description"> </input>
+          </div>
+
 
         <div class="title">
           <label for="poll-title">What do you need help on deciding today?</label>
@@ -72,11 +88,21 @@
 
       </div>
 
+
       <div class="choose-option">
         Still can't decide? Minimum of three options please!
 
         <input type="form" name="choiceSub[0]" class="form-control" rows="1" placeholder="Option 1">
         <input type="form" name="choiceSub[1]" class="form-control" rows="1" placeholder="Option 2">
+
+            <input type="text" name="choiceSub[0]" class="form-control" rows="1" style="width: 200px;"
+              placeholder="Option 1" required>
+            <input type="text" name="choiceSub[1]" class="form-control" rows="1" style="width: 200px;"
+              placeholder="Option 2" required>
+
+            <input type="text" name="choiceSub[2]" class="form-control" rows="1" style="width: 200px;"
+              placeholder="Option 3" required>
+
 
         <input type="form" name="choiceSub[2]" class="form-control" rows="1" placeholder="Option 3">
 
@@ -85,6 +111,12 @@
         <article id="option-creator">
         </article>
 
+
+        <div class="email">
+          <label for="email">Please enter your email:</label>
+          <input type="email" name="email" class="poll-email" id="email" required>
+        </div>
+        <input class="btn btn-outline-success btn-block" type="submit" value="Submit">
       </div>
 
       <div class="email">

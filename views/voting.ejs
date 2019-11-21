@@ -35,6 +35,7 @@
   </div>
 
   <div>
+
     <form method="POST" action=":id/results">
       <div class="voter-sort">
           <ul id="sortable">
@@ -47,6 +48,17 @@
       <div class="voter-name">
           <input id="vote" class="btn btn-outline-success btn-block" type="submit" value="Submit">
       </div>
+
+
+    <form method="POST" action="<%= id %>/results">
+      <ul id="sortable">
+        <% for (let i = 0; i < choices; i++) { %>
+          <li class="ui-state-default"><input style="pointer-events:none"  name="choiceSub" value="<%= choiceSub[i] %>"></li>
+        <% } %>
+      </ul>
+
+      <input id="name-input" class="form-control" type="text" name="voter-name" placeholder="your name - optional">
+      <input id="vote" class="btn btn-primary" type="submit" value="Submit">
 
     </form>
 

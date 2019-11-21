@@ -22,17 +22,20 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-  <script type="text/javascript" src="/scripts/renderChart.js"></script>
+  
 
 </head>
 <body>
   
     <header>
-        <% include partials/_header %>
+        <% include Partials/_header %>
       </header>
 
    <!-- Chart.js bar chart -->
   <canvas id="bar-chart" width="600" height="250"></canvas>
-    
+    <script>
+    const result = [5, 2];
+    </script>
+  <script type="text/javascript" src="/scripts/renderChart.js"></script>
 </body>
 </html>
