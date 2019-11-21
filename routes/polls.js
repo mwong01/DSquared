@@ -36,7 +36,6 @@ router.post("/", (req, res) => {
   }
 });
 
-
 /**
  *  Links route
  *  Links page renders two links: url and admin link
@@ -52,7 +51,6 @@ router.post("/", (req, res) => {
     res.render("links", templateVars);
     });
   });
-});
 
 /**
  * Voting route
@@ -81,7 +79,6 @@ router.post("/", (req, res) => {
     res.render("admin", templateVars);
     });
   });
-});
 
   /**
    * Results route
@@ -112,7 +109,6 @@ router.post("/", (req, res) => {
         });
       });
     });
-
   });
 
 // Creates vote route
