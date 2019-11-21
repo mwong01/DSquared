@@ -9,7 +9,7 @@ $(document).ready(function () {
     let $choices = $('<article  id="choice-container">').addClass('list');
     let markup = `<div>
       <input type="form" name="choiceSub[${number}]" class="form-control" rows="1" placeholder="Enter new option">
-      <button id="delete-button" onclick="removeButton(this)" type="button" class="btn btn-danger">Remove Option</button>
+      <button id="delete-button" onclick="removeButton(this)" type="button" class="btn btn-danger">Remove</button>
       </div>
     `;
     $('#option-creator').append($choices.append(markup));
@@ -21,3 +21,9 @@ $(document).ready(function () {
     $(button).parent().remove();
   }
 });
+
+$(document).ready(function () {
+  $("#down-button").click(function() {
+    $("#click-for-new-poll").slideToggle("slow");
+  });
+})
