@@ -34,7 +34,7 @@
    <!-- Chart.js bar chart -->
   <canvas id="bar-chart" width="600" height="250"></canvas>
     <script>
-    const result = [5, 2];
+    const result = <%- JSON.stringify(resultsObj) %>;
     </script>
   <script type="text/javascript" src="/scripts/renderChart.js"></script>
 </body>
