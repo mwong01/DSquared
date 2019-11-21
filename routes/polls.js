@@ -22,11 +22,11 @@ const helpers = require('./helpers');
 
 module.exports = function() {
 
-//Create a New Poll
+//Create a New Poll & send an email
 router.post("/", (req, res) => {
   if (req.body.title === "" || req.body.email === "") {
     res.status(400);
-    res.send("400 error - Bad Request: No title or email entered. Please try again");
+    res.render('index.ejs', { notification: 'No title or email entered. Please try again'})
   }  else {
     const poll = req.body;
     database.addPoll(poll.title, poll.email, poll.description)
@@ -117,8 +117,16 @@ router.post("/:id/results", (req, res) => {
     console.log(name);
   }
 
-  res.redirect("thank_you");
+  res.redirect("/thank-you");
 });
 
   return router;
 };
+
+
+/**
+ * Results route
+**/
+router.get("/thank-you", (req, res) => {
+    res.render("thank_you");
+  });
