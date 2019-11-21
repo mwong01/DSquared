@@ -59,98 +59,62 @@
   <section id="click-for-new-poll" class="new-poll">
     <form action="/polls/" method="POST">
 
-<<<<<<< HEAD
-      <div id="initial-poll-setup">
-=======
 
       <div id="initial-poll-setup">
 
->>>>>>> 0988ceb0f35d2c35eca3db0f72840068cba8357a
-      <div class="row-container">
+        <div class="row-container">
 
-        <div id="initial-poll-setup">
+          <div id="initial-poll-setup">
 
-          <div class="title">
+            <div class="title">
               <label for="poll-title">What do you need help to decide today?</label>
               <input type="text" name="title" class="poll-title" required="required"> </input>
+            </div>
+
+            <div class="description">
+              <label for="poll-description">Any details you'd like to share?</label>
+              <input type="text" name="description" class="poll-description"> </input>
+            </div>
+
+
+            <div class="title">
+              <label for="poll-title">What do you need help on deciding today?</label>
+              <input type="form" name="title" class="poll-title" placeholder="Poll Title"> </input>
+            </div>
+            <div class="description">
+              <label for="poll-description">Any details you'd like to share?</label>
+              <input type="form" name="description" class="poll-description" placeholder="Description (optional)">
+              </input>
+            </div>
+
           </div>
 
-          <div class="description">
-            <label for="poll-description">Any details you'd like to share?</label>
-            <input type="text" name="description" class="poll-description"> </input>
+
+          <div class="choose-option">
+            Still can't decide? Minimum of three options please!
+
+            <input type="text" name="choiceSub[0]" class="form-control" rows="1" placeholder="Option 1">
+            <input type="text" name="choiceSub[1]" class="form-control" rows="1" placeholder="Option 2">
+            <input type="text" name="choiceSub[2]" class="form-control" rows="1" placeholder="Option 3">
+
+            <button id="first-button" type="button" class="btn btn-outline-dark">Add more options</button>
+
+            <article id="option-creator">
+            </article>
+
+          <div class="email">
+            <label for="email">Please enter your email:</label>
+            <input type="email" name="email" class="poll-email" id="email" placeholder="Enter email address">
+            <input class="btn btn-outline-dark btn-block" type="submit" value="Submit">
+            <small id="emailHelp" class="form-text text-muted">You will receive an confirmation email that contains a
+              sharable voting link and results link</small>
           </div>
-<<<<<<< HEAD
-=======
-
->>>>>>> 0988ceb0f35d2c35eca3db0f72840068cba8357a
-
-        <div class="title">
-          <label for="poll-title">What do you need help on deciding today?</label>
-          <input type="form" name="title" class="poll-title" placeholder="Poll Title"> </input>
-        </div>
-        <div class="description">
-          <label for="poll-description">Any details you'd like to share?</label>
-          <input type="form" name="description" class="poll-description" placeholder="Description (optional)"> </input>
-        </div>
-
-      </div>
-
-<<<<<<< HEAD
-=======
-
->>>>>>> 0988ceb0f35d2c35eca3db0f72840068cba8357a
-      <div class="choose-option">
-        Still can't decide? Minimum of three options please!
-
-        <input type="form" name="choiceSub[0]" class="form-control" rows="1" placeholder="Option 1">
-        <input type="form" name="choiceSub[1]" class="form-control" rows="1" placeholder="Option 2">
-<<<<<<< HEAD
-=======
-
->>>>>>> 0988ceb0f35d2c35eca3db0f72840068cba8357a
-            <input type="text" name="choiceSub[0]" class="form-control" rows="1" style="width: 200px;"
-              placeholder="Option 1" required>
-            <input type="text" name="choiceSub[1]" class="form-control" rows="1" style="width: 200px;"
-              placeholder="Option 2" required>
-
-            <input type="text" name="choiceSub[2]" class="form-control" rows="1" style="width: 200px;"
-              placeholder="Option 3" required>
-<<<<<<< HEAD
-=======
-
->>>>>>> 0988ceb0f35d2c35eca3db0f72840068cba8357a
-
-        <input type="form" name="choiceSub[2]" class="form-control" rows="1" placeholder="Option 3">
-
-        <button id="first-button" type="button" class="btn btn-outline-dark">Add more options</button>
-
-        <article id="option-creator">
-        </article>
-
-<<<<<<< HEAD
-=======
-
->>>>>>> 0988ceb0f35d2c35eca3db0f72840068cba8357a
-        <div class="email">
-          <label for="email">Please enter your email:</label>
-          <input type="email" name="email" class="poll-email" id="email" required>
-        </div>
-        <input class="btn btn-outline-success btn-block" type="submit" value="Submit">
-      </div>
-
-      <div class="email">
-        <label for="email">Please enter your email:</label>
-        <input type="email" name="email" class="poll-email" id="email" placeholder="Enter email address">
-        <input class="btn btn-outline-dark btn-block" type="submit" value="Submit">
-        <small id="emailHelp" class="form-text text-muted">You will receive an confirmation email that contains a
-          sharable voting link and results link</small>
-      </div>
     </form>
   </section>
 
   <div id="down-button" class="down-arrow">
-      <i class="fas fa-chevron-circle-down fa-3x"></i>
-    </div>
+    <i class="fas fa-chevron-circle-down fa-3x"></i>
+  </div>
 
   <script>
     function removeButton(button) {
