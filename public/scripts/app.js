@@ -34,7 +34,6 @@ $(document).ready(function () {
   function removeButton(button) {
     $(button).parent().remove();
   }
-
 });
 
 

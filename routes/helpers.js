@@ -5,7 +5,8 @@ function fullURL(req) {
     protocol: req.protocol,
     host: req.get('host'),
   });
-}
+};
+
 
 const buildChoicesObject = function (data){
   let objectDATA = {};
@@ -21,7 +22,7 @@ const buildChoicesObject = function (data){
   });
   objectDATA['choiceSub'] = choiceArray;
   return objectDATA;
-}
+};
 
 // Copy links to clipboard
 function copyAdminLink() {

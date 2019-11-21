@@ -10,7 +10,7 @@ const mg = mailgun({apiKey: API, domain: DOMAIN});
 
 const sendPollSubmittedEmail = function(req, poll) {
   const data = {
-    from: 'Excited User <the_morbidus@hotmail.com>',
+    from: 'DSquared <DSquared@hotmail.com>',
     to: 'bar@example.com, YOU@YOUR_DOMAIN_NAME',
     subject: 'Hello',
     text: ''
@@ -27,7 +27,25 @@ const sendPollSubmittedEmail = function(req, poll) {
   mg.messages().send(data, function (error, body) {
     console.log(body);
   });
+};
 
-}
+const sendVoteSubmittedEmail = function(req, poll) {
+  const data = {
+    from: 'DSquared <DSquared@hotmail.com>',
+    to: 'bar@example.com, YOU@YOUR_DOMAIN_NAME',
+    subject: 'Someone voted! Checkout the results',
+    text: ''
+  };
+  const email = poll['email'];
+  const startURL = helpers.fullURL(req) + "/polls/"; 
+  const resultURL = startURL + poll.id + "/results";  
+
+  data['to'] = email;
+  data['text'] += `One of your peeps voted on your poll: ${poll.title}. 
+  You can view the results here: ${resultURL}.`
+  mg.messages().send(data, function (error, body) {
+    console.log(body);
+  });
+};
 
 module.exports = {sendPollSubmittedEmail};
