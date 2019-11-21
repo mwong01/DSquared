@@ -25,7 +25,6 @@ const sendPollSubmittedEmail = function(req, poll) {
   Here is the voting link: ${publicURL}. 
   Here is the admin link: ${adminURL}`
   mg.messages().send(data, function (error, body) {
-    console.log(body);
   });
 };
 
@@ -44,8 +43,7 @@ const sendVoteSubmittedEmail = function(req, poll) {
   data['text'] += `One of your peeps voted on your poll: ${poll.title}. 
   You can view the results here: ${resultURL}.`
   mg.messages().send(data, function (error, body) {
-    console.log(body);
   });
 };
 
-module.exports = {sendPollSubmittedEmail};
+module.exports = {sendPollSubmittedEmail, sendVoteSubmittedEmail};

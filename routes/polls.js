@@ -5,9 +5,7 @@
  * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
  */
 
- // load .env data into process.env
 require('dotenv').config();
-
 
 const express = require('express');
 const router  = express.Router();
@@ -15,14 +13,11 @@ const database = require('./database');
 const emailAPI = require('./emailAPI');
 const helpers = require('./helpers');
 
-
 /**
  * Decision, Decision Routes
 **/
-
-module.exports = function() {
-
 //Create a New Poll & send an email
+module.exports = function() {
 router.post("/", (req, res) => {
   if (req.body.title === "" || req.body.email === "") {
     res.render('index', { notification: 'No title or email entered. Please try again'})
@@ -39,7 +34,6 @@ router.post("/", (req, res) => {
             })
     }).catch(e => res.send(e));
   }
-
 });
 
 /**
@@ -61,7 +55,6 @@ router.get("/:id/links", (req, res) => {
 /**
  * Voting route
 **/
-
 router.get("/:public_id", (req, res) => {
   const publicId = req.params.public_id;
   const optionsDATA = database.getOptions(publicId);
@@ -72,11 +65,9 @@ router.get("/:public_id", (req, res) => {
   });
 });
 
-
 /**
  * Admin route
 **/
-
 router.get("/:id/admin", (req, res) => {
   const id = req.params.id
   database.getPoll(id).then((poll) => {
@@ -90,7 +81,6 @@ router.get("/:id/admin", (req, res) => {
 /**
  * Results route
 **/
-
 router.get("/:id/results", (req, res) => {
   const id = req.params.id
   database.getPoll(id).then((poll) => {
@@ -114,9 +104,7 @@ router.post("/:id/results", (req, res) => {
     let array = Object.values(object);
     poll_ID = array[0];
     console.log(poll_ID);
-    ///////////////
-    //add to Voter table
-    //////////////
+    //Add to voter table
     database.addVoter(poll_ID, name);
     let rankArray = [];
     for (let i = votes.length; i > 0; i--) {
@@ -138,23 +126,18 @@ router.post("/:id/results", (req, res) => {
           database.insertVotes(opID['id'], newName,rankArray[i])
         })
       }
-    }
-
-  res.redirect("/thank-you");
-
-  });
-
+    }  
+  }).then(() => {
+    // emailAPI.sendVoteSubmittedEmail(req)
+    res.redirect("/thank-you")
+  }).catch(e => res.send(e));
 });
-
-
-
-
 /**
- * Results route
+ * Thank you route
 **/
 router.get("/thank-you", (req, res) => {
-    res.render("thank_you");
-  });
+  res.render("thank_you");
+});
 
   return router;
 };
