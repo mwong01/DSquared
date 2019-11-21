@@ -28,7 +28,7 @@
     <% include Partials/_header %>
   </header>
   <div>
-    <form method="POST" action=":id/results">
+    <form method="POST" action="<%= id %>/results">
       <ul id="sortable">
         <% for (let i = 0; i < choices; i++) { %>
           <li class="ui-state-default"><input style="pointer-events:none"  name="choiceSub" value="<%= choiceSub[i] %>"></li>

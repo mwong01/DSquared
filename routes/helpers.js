@@ -7,7 +7,6 @@ function fullURL(req) {
   });
 };
 
-
 const buildChoicesObject = function (data){
 
   let objectDATA = {};

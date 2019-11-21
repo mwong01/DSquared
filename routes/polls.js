@@ -5,9 +5,7 @@
  * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
  */
 
- // load .env data into process.env
 require('dotenv').config();
-
 
 const express = require('express');
 const router  = express.Router();
@@ -15,14 +13,11 @@ const database = require('./database');
 const emailAPI = require('./emailAPI');
 const helpers = require('./helpers');
 
-
 /**
  * Decision, Decision Routes
 **/
-
-module.exports = function() {
-
 //Create a New Poll & send an email
+module.exports = function() {
 router.post("/", (req, res) => {
   if (req.body.title === "" || req.body.email === "") {
     res.render('index', { notification: 'No title or email entered. Please try again'})
@@ -39,8 +34,9 @@ router.post("/", (req, res) => {
             })
     }).catch(e => res.send(e));
   }
-
 });
+
+
 
 /**
  *  Links route
@@ -61,22 +57,20 @@ router.get("/:id/links", (req, res) => {
 /**
  * Voting route
 **/
-
 router.get("/:public_id", (req, res) => {
   const publicId = req.params.public_id;
   const optionsDATA = database.getOptions(publicId);
   optionsDATA.then((data) => {
     let objectDATA = {};
     objectDATA = helpers.buildChoicesObject(data);
+    objectDATA.id = publicId;
     res.render("voting", objectDATA);
   });
 });
 
-
 /**
  * Admin route
 **/
-
 router.get("/:id/admin", (req, res) => {
   const id = req.params.id
   database.getPoll(id).then((poll) => {
@@ -90,7 +84,6 @@ router.get("/:id/admin", (req, res) => {
 /**
  * Results route
 **/
-
 router.get("/:id/results", (req, res) => {
   const id = req.params.id
   database.getPoll(id).then((poll) => {
@@ -106,55 +99,44 @@ router.post("/:id/results", (req, res) => {
   votes = body['choiceSub'];  //stores the votes
   name = body['voter-name'];  // stores the voter name, '' for null
   
-  const deleteLine = req.headers.origin + '/polls/';
-  const id = req.headers.referer.replace(deleteLine, "");
+  const id = req.params.id;
   let poll_ID;
   database.getPollIdByPublicId(id).then((data) => {
     let object = data;
     let array = Object.values(object);
     poll_ID = array[0];
     console.log(poll_ID);
-    ///////////////
-    //add to Voter table
-    //////////////
-    database.addVoter(poll_ID, name);
+    //Add to voter table
+    return database.addVoter(poll_ID, name);
+  }).then((voter) => {
     let rankArray = [];
     for (let i = votes.length; i > 0; i--) {
       rankArray.push(i);
     }
-    let newName;
-    if (name !== '') {
-      database.getVoterId(name).then((voID) => {
-        newName = voID['id'];
+    if (voter.name !== '') {
+        let newName = voter['id'];
         for (let i = 0; i < votes.length; i++) {
           database.getOptionsId(votes[i]).then((opID) => {
             database.insertVotes(opID['id'], newName,rankArray[i])
           })
         }
-      });
     } else {
       for (let i = 0; i < votes.length; i++) {
         database.getOptionsId(votes[i]).then((opID) => {
-          database.insertVotes(opID['id'], newName,rankArray[i])
+          database.insertVotes(opID['id'], voter.name,rankArray[i])
         })
       }
     }
-
-  res.redirect("/thank-you");
-
-  });
-
+    return true;
+  })
+  .then(() => {
+    database.getPollByPublicId(id)
+    .then((poll) => {
+      emailAPI.sendVoteSubmittedEmail(req, poll);
+    })
+    res.redirect("/thank-you")
+  }).catch(e => res.send(e));  
 });
-
-
-
-
-/**
- * Results route
-**/
-router.get("/thank-you", (req, res) => {
-    res.render("thank_you");
-  });
 
   return router;
 };
