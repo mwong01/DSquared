@@ -6,16 +6,31 @@ DSquared is a decision maker app that does the hard work of deciding easy for yo
 
 We built this app using HTML, CSS, JS, jQuery and utilizing AJAX front-end skills. We also used Node and Express server-side. 
 
-## 🐣*Hmmmm....*🐣
+## 🧐*Hmmmm....*🧐
 
 //CHANGE PHOTOS
-Here's a sneak-peek of what Tweeter looks like: 
+Here's a sneak-peek of what DSquared looks like: 
 
-!["Login Page in desktop view"](https://github.com/fatimaaltaf/tweeter/blob/master/Docs/Tweeter-homepage.png)
+!["DSquared Homepage"](https://github.com/mwong01/DSquared/blob/master/public/images/README-file-images/DSquared-homepage.png)
 
-Mobile view
+Poll submission
 
-!["Mobile view](https://github.com/fatimaaltaf/tweeter/blob/master/Docs/tweeter-mobile-responsive.png)
+!["Poll submission"](https://github.com/mwong01/DSquared/blob/master/public/images/README-file-images/DSquared-pollsubmission-form.png)
+
+Links page that shows link to admin page and link to share poll
+
+!["Link page"](https://github.com/mwong01/DSquared/blob/master/public/images/README-file-images/link-page.png)
+
+Admin page that shows link to result
+
+!["Admin page"](https://github.com/mwong01/DSquared/blob/master/public/images/README-file-images/admin-page.png)
+
+Voting page
+!["Voting page"](https://github.com/mwong01/DSquared/blob/master/public/images/README-file-images/voting-page.png)
+
+Results page
+!["Results page"](https://github.com/mwong01/DSquared/blob/master/public/images/README-file-images/Results-page.png)
+
 
 ## 💻How to use 💻
 
