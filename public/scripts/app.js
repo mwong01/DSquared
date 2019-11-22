@@ -18,6 +18,16 @@ $(document).ready(function () {
   function removeButton(button) {
     $(button).parent().remove();
   }
+
+  //////////////////////////////
+  // Prevent malicious code
+  //////////////////////////////
+
+  const escape =  function(str) {  // the code provided by the lesson to prevent malicious code
+    let div = document.createElement('div');
+    div.appendChild(document.createTextNode(str));
+    return div.innerHTML;
+  }
 });
 
 $(document).ready(function () {
