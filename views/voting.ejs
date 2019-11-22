@@ -38,7 +38,7 @@
       <div class="voter-sort">
           <ul id="sortable">
               <% for (let i = 0; i < choices; i++) { %>
-                <li class="ui-state-default"><input style="pointer-events:none"  name="choiceSub" value="<%= choiceSub[i] %>"></li>
+                <li class="ui-state-default"><input style="pointer-events:none"  name="choiceSub" value="<%= escape( choiceSub[i]) %>"></li>
               <% } %>
             </ul>
       </div>
