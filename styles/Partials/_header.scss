@@ -18,6 +18,11 @@ nav {
   color: #FFFF;
   }
 
+  .flex-container a:hover {
+    color: white;
+    text-decoration: none;
+  }
+
   .create-poll {
   display: flex;
   justify-content: flex-end;

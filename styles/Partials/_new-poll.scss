@@ -10,8 +10,7 @@
 }
 
 .poll-title, .poll-choice, .poll-description, .poll-email {
-  border: none;
-  background: none;
+  background: #DAA94E;
   // justify-content: space-between;
   size: 50px;
 }
@@ -27,18 +26,48 @@
   border-style: dashed;
 }
 
-#option-flex {
+.starting-choices {
   display: flex;
   justify-content: space-between;
+  margin-left: 0px;
   // flex-direction: column;
 }
 
-.title, .description, .choose-option {
+.title, .description, .options-title {
   display: flex;
   justify-content: space-between;
   margin-left: 8%;
   margin-right: 8%;
-  margin-top: 5%;
+  margin-top: 3%;
+}
+
+.column {
+  display: flex;
+  margin-left: 8%;
+  margin-right: 8%;
+}
+
+.choose-option {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-bottom: 5%;
+}
+
+.cant-decide {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 8%;
+  margin-right: 8%;
+}
+
+.additional-choices {
+  margin-left: 8%;
+  margin-right: 8%;
+}
+
+.form-control {
+  width: auto;
 }
 
 .email {
@@ -46,10 +75,18 @@
   flex-direction: column;
   margin-left: 8%;
   margin-right: 8%;
-  margin-top: 5%;
-  margin-bottom: 5%;
+  margin-top: 3%;
+  margin-bottom: 3%;
 }
 
+.new {
+  display: flex;
+  justify-content: space-between;
+  margin-right: 8%;
+  margin-top: 2%;
+  margin-bottom: 2%;
+
+}
 .down-arrow {
   margin-top: 2%;
   margin-bottom: 2%;
@@ -63,3 +100,7 @@
   padding: 0 0 10px 0;
 }
 
+button, input, optgroup, select, textarea {
+  font-size: 1rem;
+  font-weight: 400;
+}

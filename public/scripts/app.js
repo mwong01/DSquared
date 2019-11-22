@@ -7,9 +7,9 @@ $(document).ready(function () {
   $("#first-button").click(() => {
     event.preventDefault();
     let $choices = $('<article  id="choice-container">').addClass('list');
-    let markup = `<div>
+    let markup = `<div class="new">
       <input type="text" name="choiceSub[${number}]" class="form-control" rows="1" placeholder="Enter new option" style="background: none">
-      <button id="delete-button" onclick="removeButton(this)" type="button" class="btn btn-danger">Remove</button>`;
+      <button id="delete-button" onclick="removeButton(this)" type="button" class="btn btn-danger">Remove</button><div>`;
     $('#option-creator').append($choices.append(markup));
     number++;
 

@@ -88,6 +88,7 @@ router.post("/", (req, res) => {
     let arr = [];
     let arrOption = [];
     let resultsObj = {};
+
     database.getPoll(id).then((data) => {
       resultsObj['title'] = data.title;
     });
@@ -96,10 +97,14 @@ router.post("/", (req, res) => {
       const promises = []
       data.forEach((item) => {
         singleTemp = item['id'];
+        console.log(singleTemp);
+        console.log(database.getVotesSum(singleTemp));
         promises.push(database.getVotesSum(singleTemp))
       })
 
       Promise.all(promises).then(values => {
+        console.log("values:")
+        console.log(values)
         values.forEach((number) => {
           arr.push(parseInt(number['sum']));
         });

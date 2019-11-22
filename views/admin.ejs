@@ -32,7 +32,7 @@
   <h2>Manage your polls:</h2>
 
   <div class="border-1">
-    <h4>NAME OF POLL!!!</h4>
+    <h4>My Poll</h4>
     <div class="flex-public-link">
       <input class="rendered-url" id="public_link" type="url" value="<%= resultsURL %>" readonly>
 
@@ -40,48 +40,10 @@
         <i class="fas fa-external-link-alt fa-2x"></i>
       </button>
 
-      <button class="btn btn-dark" onclick="copyPublicLink()"><i class="far fa-copy fa-2x"></i></button>
+      <button class="btn btn-dark" onclick="copyResultsLink()"><i class="far fa-copy fa-2x"></i></button>
     </div>
   </div>
 
-  <div class="border-1">
-    <h4>POLL #2</h4>
-    <div class="flex-public-link">
-      <input class="rendered-url" id="public_link" type="url" value="<%= resultsURL %>" readonly>
-
-      <button class="btn btn-dark" onclick="location.href='<%= resultsURL %>';">
-        <i class="fas fa-external-link-alt fa-2x"></i>
-      </button>
-
-      <button class="btn btn-dark" onclick="copyPublicLink()"><i class="far fa-copy fa-2x"></i></button>
-    </div>
-  </div>
-
-  <div class="border-1">
-    <h4>POLL #3</h4>
-    <div class="flex-public-link">
-      <input class="rendered-url" id="public_link" type="url" value="<%= resultsURL %>" readonly>
-
-      <button class="btn btn-dark" onclick="location.href='<%= resultsURL %>';">
-        <i class="fas fa-external-link-alt fa-2x"></i>
-      </button>
-
-      <button class="btn btn-dark" onclick="copyPublicLink()"><i class="far fa-copy fa-2x"></i></button>
-    </div>
-  </div>
-
-  <div class="border-1">
-    <h4>POLL #4</h4>
-    <div class="flex-public-link">
-      <input class="rendered-url" id="public_link" type="url" value="<%= resultsURL %>" readonly>
-
-      <button class="btn btn-dark" onclick="location.href='<%= resultsURL %>';">
-        <i class="fas fa-external-link-alt fa-2x"></i>
-      </button>
-
-      <button class="btn btn-dark" onclick="copyPublicLink()"><i class="far fa-copy fa-2x"></i></button>
-    </div>
-  </div>
 
   <script>
     function copyResultsLink() {
