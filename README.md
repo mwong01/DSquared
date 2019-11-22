@@ -45,20 +45,20 @@ Results page
 
 ## ⬆️Dependencies⬆️
 
-body-parser: "^1.19.0",
-chalk: "^2.4.2",
-chart.js: "^2.9.3",
-confetti-js: "0.0.15",
-dotenv: "^2.0.0",
-ejs: "^2.7.4",
-express: "^4.17.1",
-mailgun-js: "^0.22.0",
-morgan: "^1.9.1",
-node-sass-middleware: "^0.11.0",
-pg: "^6.4.2",
-pg-native: "^3.0.0",
-url: "^0.11.0",
-uuid: "^3.3.3"
+* body-parser: "^1.19.0",
+* chalk: "^2.4.2",
+* chart.js: "^2.9.3",
+* confetti-js: "0.0.15",
+* dotenv: "^2.0.0",
+* ejs: "^2.7.4",
+* express: "^4.17.1",
+* mailgun-js: "^0.22.0",
+* morgan: "^1.9.1",
+* node-sass-middleware: "^0.11.0",
+* pg: "^6.4.2",
+* pg-native: "^3.0.0",
+* url: "^0.11.0",
+* uuid: "^3.3.3"
 
 ## 📌Features📌
 
