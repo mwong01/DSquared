@@ -37,7 +37,7 @@ const sendVoteSubmittedEmail = function(req, poll) {
   };
   const email = poll['email'];
   const startURL = helpers.fullURL(req) + "/polls/"; 
-  const resultURL = startURL + poll.id + "/results";  
+  const resultURL = startURL + poll.id + "/results"; 
 
   data['to'] = email;
   data['text'] += `One of your peeps voted on your poll: ${poll.title}. 
