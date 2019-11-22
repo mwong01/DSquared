@@ -103,20 +103,20 @@ router.post("/", (req, res) => {
       })
 
       Promise.all(promises).then(values => {
-        console.log("values:")
-        console.log(values)
-        values.forEach((number) => {
-          arr.push(parseInt(number['sum']));
-        });
         data.forEach((choiceItem) => {
           arrOption.push(choiceItem['choicesub']);
         });
-
-        console.log(arr);
-        console.log(arrOption);
+        values.forEach((number) => {  // fill results with value of 0 if empty votes table
+          if (number === undefined) {
+            for (let h = 0; h < arrOption.length; h++) {
+              arr.push(0);
+            }
+          } else {
+            arr.push(parseInt(number['sum']));
+          }
+        });
         resultsObj['sumOfEachChoice'] = arr;
         resultsObj['optionsList'] = arrOption;
-        console.log(resultsObj);
         database.getPoll(id).then((poll) => {
           res.render("results", {resultsObj});
         });
