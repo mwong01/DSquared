@@ -1,8 +1,10 @@
 .vote-record {
+  margin-top: 3%;
   text-align: center;
 }
 
-.homepage-link {
+.homepage-link, .homepage-link:visited, .homepage-link:link {
   text-align: center;
-  font: black;
+  color: black;
+  font-weight: normal;
 }

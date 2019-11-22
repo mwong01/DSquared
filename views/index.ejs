@@ -78,39 +78,60 @@
 
           </div>
 
+          <div class="options-title">
+            Minimum of three options to start please!
+          </div>
 
-          <div class="choose-option">
-            Still can't decide? Minimum of three options please!
 
+          <div class="column">
 
-            <div class="option-flex">
+            <div class="choose-option">
 
               <div class="starting-choices">
-                <input type="text" name="choiceSub[0]" class="form-control" rows="1" placeholder="Option 1" style="background: none">
-                <input type="text" name="choiceSub[1]" class="form-control" rows="1" placeholder="Option 2" style="background: none">
-                <input type="text" name="choiceSub[2]" class="form-control" rows="1" placeholder="Option 3" style="background: none">
-
-                <button id="first-button" type="button" class="btn btn-outline-success">Add more options</button>
+                <input type="text" name="choiceSub[0]" class="form-control" rows="1" placeholder="Option 1"
+                  style="background: none">
               </div>
 
-              <div class="new-options">
-                <article id="option-creator">
-                </article>
-
+              <div class="starting-choices">
+                <input type="text" name="choiceSub[1]" class="form-control" rows="1" placeholder="Option 2"
+                  style="background: none">
               </div>
 
+              <div class="starting-choices">
+                <input type="text" name="choiceSub[2]" class="form-control" rows="1" placeholder="Option 3"
+                  style="background: none">
+              </div>
             </div>
+          </div>
 
+              <div class="cant-decide">
+                Still can't decide?
+                <button id="first-button" type="button" class="btn btn-outline-success">
+                  Add more options
+                </button>
+              </div>
+
+          <div class="additional-choices">
+
+            <article id="option-creator" class="option-creator">
+            </article>
 
           </div>
 
 
-          <div class="email">
-            <label for="email">Please enter your email:</label>
-            <input type="email" name="email" class="poll-email" id="email" placeholder="Enter email address">
-            <input class="btn btn-outline-dark btn-block" type="submit" value="Submit">
-            <small id="emailHelp" class="form-text text-muted">You will receive an confirmation email that contains a sharable voting link and results link.</small>
-          </div>
+        </div>
+
+
+      </div>
+
+
+      <div class="email">
+        <label for="email">Please enter your email:</label>
+        <input type="email" name="email" class="poll-email" id="email" placeholder="Enter email address">
+        <input class="btn btn-outline-dark btn-block" type="submit" value="Submit">
+        <small id="emailHelp" class="form-text text-muted">You will receive an confirmation email that contains a
+          sharable voting link and results link.</small>
+      </div>
     </form>
   </section>
 
