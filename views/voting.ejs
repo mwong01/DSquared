@@ -38,7 +38,10 @@
       <div class="voter-sort">
           <ul id="sortable">
               <% for (let i = 0; i < choices; i++) { %>
-                <li class="ui-state-default"><input style="pointer-events:none"  name="choiceSub" value="<%= escape( choiceSub[i]) %>"></li>
+<!--                 <% while(choiceSub[i].search("%20") !== -1) { %>
+                <%   choiceSub[i] = choiceSub[i].replace("%20", " "); %>
+                <% } %> -->
+                <li class="ui-state-default"><input style="pointer-events:none"  name="choiceSub" value="<%= choiceSub[i] %>"></li>
               <% } %>
             </ul>
       </div>

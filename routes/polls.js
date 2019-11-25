@@ -63,6 +63,7 @@ router.post("/", (req, res) => {
       let objectDATA = {};
       objectDATA = helpers.buildChoicesObject(data);
       objectDATA.id = publicId;
+      console.log(objectDATA);
       res.render("voting", objectDATA);
     });
   });
